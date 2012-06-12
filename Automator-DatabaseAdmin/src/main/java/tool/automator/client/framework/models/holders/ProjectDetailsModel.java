@@ -3,28 +3,29 @@ package tool.automator.client.framework.models.holders;
 import java.util.ArrayList;
 import java.util.List;
 
-import tool.automator.common.db.dao.factory.DAOFactory;
-import tool.automator.common.db.daoif.*;
-import tool.automator.common.db.models.*;
+import tool.automator.database.factory.DAOFactory;
+import tool.automator.database.table.project.ProjectDTO;
+import tool.automator.database.table.uipage.UIPageDTO;
+import tool.automator.database.table.uipage.UIPageService;
 
 public class ProjectDetailsModel {
-	private ProjectModel project;
+	private ProjectDTO project;
 	private List<PageDetailsModel> pageDetailsList;
 
-	public ProjectDetailsModel(ProjectModel project) {
+	public ProjectDetailsModel(ProjectDTO project) {
 		this.project = project;
 		pageDetailsList = new ArrayList<PageDetailsModel>();
-		UIPageDAOIf uiPageDAO = DAOFactory.getInstance().getUIPageDAO();
-		List<UIPageModel> pageList = uiPageDAO.getAllPagesOfProject(project.getId());
+		UIPageService uiPageDAO = DAOFactory.getInstance().getUIPageService();
+		List<UIPageDTO> pageList = uiPageDAO.getAllPagesOfProject(project.getId());
 		for (int i = 0; i < pageList.size(); i++)
 			pageDetailsList.add(new PageDetailsModel(pageList.get(i)));
 	}
 
-	public void setProject(ProjectModel project) {
+	public void setProject(ProjectDTO project) {
 		this.project = project;
 	}
 
-	public ProjectModel getProject() {
+	public ProjectDTO getProject() {
 		return project;
 	}
 

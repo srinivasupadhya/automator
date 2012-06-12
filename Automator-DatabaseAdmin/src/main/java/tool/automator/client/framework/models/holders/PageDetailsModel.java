@@ -3,56 +3,61 @@ package tool.automator.client.framework.models.holders;
 import java.util.ArrayList;
 import java.util.List;
 
-import tool.automator.common.db.dao.factory.DAOFactory;
-import tool.automator.common.db.daoif.*;
-import tool.automator.common.db.models.*;
+import tool.automator.database.factory.DAOFactory;
+import tool.automator.database.table.element.ElementDTO;
+import tool.automator.database.table.element.ElementService;
+import tool.automator.database.table.pagecondition.PageConditionDTO;
+import tool.automator.database.table.pagecondition.PageConditionService;
+import tool.automator.database.table.pagedependency.PageDependencyDTO;
+import tool.automator.database.table.pagedependency.PageDependencyService;
+import tool.automator.database.table.uipage.UIPageDTO;
 
 public class PageDetailsModel {
-	private UIPageModel page;
-	private List<PageDependencyModel> pageDependencies;
-	private List<PageConditionModel> pageConditions;
+	private UIPageDTO page;
+	private List<PageDependencyDTO> pageDependencies;
+	private List<PageConditionDTO> pageConditions;
 	private List<ElementDetailsModel> elementDetailsList;
 
-	public PageDetailsModel(UIPageModel page) {
+	public PageDetailsModel(UIPageDTO page) {
 		this.page = page;
-		PageDependencyDAOIf pageDependencyDAO = DAOFactory.getInstance().getPageDependencyDAO();
+		PageDependencyService pageDependencyDAO = DAOFactory.getInstance().getPageDependencyService();
 		pageDependencies = pageDependencyDAO.getPossibleNextPages(page.getId());
-		pageConditions = new ArrayList<PageConditionModel>();
+		pageConditions = new ArrayList<PageConditionDTO>();
 		if (pageDependencies != null) {
-			PageConditionDAOIf pageConditionDAO = DAOFactory.getInstance().getPageConditionDAO();
-			for (PageDependencyModel currentPageDependency : pageDependencies)
+			PageConditionService pageConditionDAO = DAOFactory.getInstance().getPageConditionService();
+			for (PageDependencyDTO currentPageDependency : pageDependencies)
 				pageConditions.addAll(pageConditionDAO.getPageConditionsByPageDependencyId(currentPageDependency.getId()));
 		}
 		else
-			pageDependencies = new ArrayList<PageDependencyModel>();
-		ElementDAOIf elementDAO = DAOFactory.getInstance().getElementDAO();
-		List<ElementModel> elementList = elementDAO.getElementsOfPage(page.getId());
+			pageDependencies = new ArrayList<PageDependencyDTO>();
+		ElementService elementDAO = DAOFactory.getInstance().getElementService();
+		List<ElementDTO> elementList = elementDAO.getElementsOfPage(page.getId());
 		elementDetailsList = new ArrayList<ElementDetailsModel>();
-		for (ElementModel currentElement : elementList)
+		for (ElementDTO currentElement : elementList)
 			elementDetailsList.add(new ElementDetailsModel(currentElement));
 	}
 
-	public UIPageModel getPage() {
+	public UIPageDTO getPage() {
 		return page;
 	}
 
-	public void setPage(UIPageModel page) {
+	public void setPage(UIPageDTO page) {
 		this.page = page;
 	}
 
-	public void setPageDependencies(List<PageDependencyModel> pageDependencies) {
+	public void setPageDependencies(List<PageDependencyDTO> pageDependencies) {
 		this.pageDependencies = pageDependencies;
 	}
 
-	public List<PageDependencyModel> getPageDependencies() {
+	public List<PageDependencyDTO> getPageDependencies() {
 		return pageDependencies;
 	}
 
-	public List<PageConditionModel> getPageConditions() {
+	public List<PageConditionDTO> getPageConditions() {
 		return pageConditions;
 	}
 
-	public void setPageConditions(List<PageConditionModel> pageConditions) {
+	public void setPageConditions(List<PageConditionDTO> pageConditions) {
 		this.pageConditions = pageConditions;
 	}
 

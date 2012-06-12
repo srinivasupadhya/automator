@@ -7,10 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import tool.automator.common.db.dao.factory.DAOFactory;
-import tool.automator.common.db.daoif.*;
-import tool.automator.common.db.models.*;
 import tool.automator.client.framework.models.holders.PageDetailsModel;
+import tool.automator.database.factory.DAOFactory;
+import tool.automator.database.table.uipage.UIPageDTO;
+import tool.automator.database.table.uipage.UIPageService;
 
 public class GetPageDetails extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,12 +20,12 @@ public class GetPageDetails extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer pageID = 0;
-		pageID = Integer.parseInt(request.getParameter("PAGE_ID"));
+		Long pageID = 0L;
+		pageID = Long.parseLong(request.getParameter("PAGE_ID"));
 		if (pageID != null && pageID > 0) {
 			// get page details
-			UIPageDAOIf uiPageDAO = DAOFactory.getInstance().getUIPageDAO();
-			UIPageModel page = uiPageDAO.getPageById(pageID);
+			UIPageService uiPageDAO = DAOFactory.getInstance().getUIPageService();
+			UIPageDTO page = uiPageDAO.getPageById(pageID);
 			PageDetailsModel pageDetails = new PageDetailsModel(page);
 			request.setAttribute("PAGE_DETAILS", pageDetails);
 			// forward to JSP

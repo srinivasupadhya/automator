@@ -8,8 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import tool.automator.common.db.dao.factory.DAOFactory;
-import tool.automator.common.db.daoif.*;
+import tool.automator.database.factory.DAOFactory;
+import tool.automator.database.table.uipage.UIPageService;
 
 public class GetPageNameSuggestions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,12 +19,12 @@ public class GetPageNameSuggestions extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer projectId = Integer.parseInt(request.getParameter("PROJECT_ID"));
+		Long projectId = Long.parseLong(request.getParameter("PROJECT_ID"));
 		String inputParam = request.getParameter("INPUT_PARAM");
 
 		if (projectId != null && projectId > 0) {
 			// get suggestions for page names
-			UIPageDAOIf uiPageDAO = DAOFactory.getInstance().getUIPageDAO();
+			UIPageService uiPageDAO = DAOFactory.getInstance().getUIPageService();
 			List<String> suggestions = uiPageDAO.getFilteredPageNames(projectId, inputParam);
 
 			// print response

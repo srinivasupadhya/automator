@@ -1,6 +1,6 @@
 <%@page
-	import="tool.automator.common.db.models.ElementValueModel"%>
-<%@page import="tool.automator.common.db.models.ElementModel"%>
+	import="tool.automator.database.table.elementvalue.ElementValueDTO"%>
+<%@page import="tool.automator.database.table.element.ElementDTO"%>
 <%@page
 	import="tool.automator.client.framework.models.holders.PageDetailsModel"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -20,7 +20,7 @@
 	<%
 		PageDetailsModel pageDetails = (PageDetailsModel) request.getAttribute("PAGE_DETAILS");
 	%>
-	<h3><%= pageDetails.getPage().getPageName() %></h3>
+	<h3><%=pageDetails.getPage().getPageName()%></h3>
 	<table id="newspaper-a">
 		<thead>
 			<tr>
@@ -46,8 +46,8 @@
 			</tr>
 			<tr><td colspan="12" style="padding: 0; margin: 0"><hr /></td></tr>
 			<%
-			for (int i = 0; i < pageDetails.getElementDetailsList().size(); i++) {
-				ElementModel element = pageDetails.getElementDetailsList().get(i).getElement();
+				for (int i = 0; i < pageDetails.getElementDetailsList().size(); i++) {
+						ElementDTO element = pageDetails.getElementDetailsList().get(i).getElement();
 			%>
 				<tr>
 				<td><%=element.getRelativeOrder()%></td>
@@ -62,19 +62,21 @@
 				</td>
 				<td><%=element.getUIElementType()%></td>
 				<td>
-				<% if(element.isOptional())
-					out.print("TRUE");
+				<%
+					if(element.isOptional())
+							out.print("TRUE");
 				%>
 				</td>
 				<td>
-				<% if(element.isHidden())
-					out.print("TRUE");
+				<%
+					if(element.isHidden())
+							out.print("TRUE");
 				%>
 				</td>
 				<%
-				if(pageDetails.getElementDetailsList().get(i).getElementValueDetailsList().size() > 0) {
-					for (int j = 0; j < pageDetails.getElementDetailsList().get(i).getElementValueDetailsList().size(); j++) {
-						ElementValueModel elementValue = pageDetails.getElementDetailsList().get(i).getElementValueDetailsList().get(j).getElementValue();
+					if(pageDetails.getElementDetailsList().get(i).getElementValueDetailsList().size() > 0) {
+							for (int j = 0; j < pageDetails.getElementDetailsList().get(i).getElementValueDetailsList().size(); j++) {
+								ElementValueDTO elementValue = pageDetails.getElementDetailsList().get(i).getElementValueDetailsList().get(j).getElementValue();
 				%>
 					<% if(j != 0) { %>
 						<tr>

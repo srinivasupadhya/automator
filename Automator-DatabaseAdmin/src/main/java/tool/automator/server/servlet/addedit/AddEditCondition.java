@@ -1,17 +1,21 @@
 package tool.automator.server.servlet.addedit;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import tool.automator.common.db.dao.factory.DAOFactory;
-import tool.automator.common.db.daoif.*;
-import tool.automator.common.db.models.*;
-import tool.automator.common.models.interfaces.ConditionIf;
+import tool.automator.database.factory.DAOFactory;
+import tool.automator.database.table.ConditionIf;
+import tool.automator.database.table.element.ElementService;
+import tool.automator.database.table.elementcondition.ElementConditionService;
+import tool.automator.database.table.elementvalue.ElementValueService;
+import tool.automator.database.table.elementvaluecondition.ElementValueConditionService;
+import tool.automator.database.table.pagecondition.PageConditionService;
+import tool.automator.database.table.uipage.UIPageService;
 
 public class AddEditCondition extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,42 +26,42 @@ public class AddEditCondition extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String conditionOn = "";
-		Integer sourcePageId = 0, destinationPageId = 0, elementId = 0, elementValueId = 0;
-		Integer addCondition = 0, editConditionId = 0;
+		Long sourcePageId = 0L, destinationPageId = 0L, elementId = 0L, elementValueId = 0L;
+		Long addCondition = 0L, editConditionId = 0L;
 		String action = request.getParameter("ACTION");
 		if (request.getParameter("ADD_CONDITION") != null)
-			addCondition = Integer.parseInt(request.getParameter("ADD_CONDITION"));
+			addCondition = Long.parseLong(request.getParameter("ADD_CONDITION"));
 		if (request.getParameter("CONDITION_ID") != null)
-			editConditionId = Integer.parseInt(request.getParameter("CONDITION_ID"));
+			editConditionId = Long.parseLong(request.getParameter("CONDITION_ID"));
 		if (request.getParameter("CONDITION_ON") != null)
 			conditionOn = request.getParameter("CONDITION_ON");
 		if (request.getParameter("SOURCE_PAGE_ID") != null)
-			sourcePageId = Integer.parseInt(request.getParameter("SOURCE_PAGE_ID"));
+			sourcePageId = Long.parseLong(request.getParameter("SOURCE_PAGE_ID"));
 		if (request.getParameter("DESTINATION_PAGE_ID") != null)
-			destinationPageId = Integer.parseInt(request.getParameter("DESTINATION_PAGE_ID"));
+			destinationPageId = Long.parseLong(request.getParameter("DESTINATION_PAGE_ID"));
 		if (request.getParameter("ELEMENT_ID") != null)
-			elementId = Integer.parseInt(request.getParameter("ELEMENT_ID"));
+			elementId = Long.parseLong(request.getParameter("ELEMENT_ID"));
 		if (request.getParameter("ELEMENT_VALUE_ID") != null)
-			elementValueId = Integer.parseInt(request.getParameter("ELEMENT_VALUE_ID"));
+			elementValueId = Long.parseLong(request.getParameter("ELEMENT_VALUE_ID"));
 
 		if ((action != null && !action.isEmpty()) && ((action.equals("ADD") && addCondition > 0) || (action.equals("EDIT") && editConditionId > 0))) {
 			ConditionIf condition = null;
-			int conditionId = 0;
+			Long conditionId = 0L;
 			if (action.equals("ADD"))
 				conditionId = addCondition;
 			else if (action.equals("EDIT"))
 				conditionId = editConditionId;
 
 			if (conditionOn.equals("PAGE")) {
-				PageConditionDAOIf pageConditionDAO = DAOFactory.getInstance().getPageConditionDAO();
+				PageConditionService pageConditionDAO = DAOFactory.getInstance().getPageConditionService();
 				condition = pageConditionDAO.getPageConditionById(conditionId);
 			}
 			else if (conditionOn.equals("ELEMENT")) {
-				ElementConditionDAOIf elementConditonDAO = DAOFactory.getInstance().getElementConditionDAO();
+				ElementConditionService elementConditonDAO = DAOFactory.getInstance().getElementConditionService();
 				condition = elementConditonDAO.getElementConditionById(conditionId);
 			}
 			else if (conditionOn.equals("ELEMENT_VALUE")) {
-				ElementValueConditionDAOIf elementValueConditionDAO = DAOFactory.getInstance().getElementValueConditionDAO();
+				ElementValueConditionService elementValueConditionDAO = DAOFactory.getInstance().getElementValueConditionService();
 				condition = elementValueConditionDAO.getElementValueConditionById(conditionId);
 			}
 
@@ -74,16 +78,16 @@ public class AddEditCondition extends HttpServlet {
 			request.setAttribute("ELEMENT_VALUE_ID", elementValueId);
 
 			// get page name - id map
-			UIPageDAOIf uiPageDAO = DAOFactory.getInstance().getUIPageDAO();
-			HashMap<Integer, String> pageIdNameMap = uiPageDAO.getPageIdNameMap();
+			UIPageService uiPageDAO = DAOFactory.getInstance().getUIPageService();
+			Map<Long, String> pageIdNameMap = uiPageDAO.getPageIdNameMap();
 			request.setAttribute("PAGE_ID_NAME_MAP", pageIdNameMap);
 			// get element name - id map
-			ElementDAOIf elementDAO = DAOFactory.getInstance().getElementDAO();
-			HashMap<Integer, String> elementIdNameMap = elementDAO.getElementIdNameMap();
+			ElementService elementDAO = DAOFactory.getInstance().getElementService();
+			Map<Long, String> elementIdNameMap = elementDAO.getElementIdNameMap();
 			request.setAttribute("ELEMENT_ID_NAME_MAP", elementIdNameMap);
 			// get element-value value - id map
-			ElementValueDAOIf elementValueDAO = DAOFactory.getInstance().getElementValueDAO();
-			HashMap<Integer, String> elementValueIdNameMap = elementValueDAO.getElementValueIdNameMap();
+			ElementValueService elementValueDAO = DAOFactory.getInstance().getElementValueService();
+			Map<Long, String> elementValueIdNameMap = elementValueDAO.getElementValueIdNameMap();
 			request.setAttribute("ELEMENT_VALUE_ID_NAME_MAP", elementValueIdNameMap);
 			// forward to JSP
 			request.getRequestDispatcher("AddEditCondition.jsp").forward(request, response);

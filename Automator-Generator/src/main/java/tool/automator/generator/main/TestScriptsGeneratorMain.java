@@ -1,28 +1,54 @@
 package tool.automator.generator.main;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import tool.automator.common.db.dao.factory.DAOFactory;
-import tool.automator.common.db.daoif.*;
-import tool.automator.common.db.models.*;
-import tool.automator.executor.constants.*;
+import tool.automator.database.constants.UIElementTypesConst;
+import tool.automator.database.factory.DAOFactory;
+import tool.automator.database.table.ConditionIf;
+import tool.automator.database.table.element.ElementDTO;
+import tool.automator.database.table.element.ElementService;
+import tool.automator.database.table.elementcondition.ElementConditionService;
+import tool.automator.database.table.elementrestriction.ElementRestrictionDTO;
+import tool.automator.database.table.elementrestriction.ElementRestrictionService;
+import tool.automator.database.table.elementvalue.ElementValueDTO;
+import tool.automator.database.table.elementvalue.ElementValueService;
+import tool.automator.database.table.elementvaluecondition.ElementValueConditionService;
+import tool.automator.database.table.elementvaluerestriction.ElementValueRestrictionDTO;
+import tool.automator.database.table.elementvaluerestriction.ElementValueRestrictionService;
+import tool.automator.database.table.pagecondition.PageConditionService;
+import tool.automator.database.table.pagedependency.PageDependencyDTO;
+import tool.automator.database.table.pagedependency.PageDependencyService;
+import tool.automator.database.table.project.ProjectDTO;
+import tool.automator.database.table.project.ProjectService;
+import tool.automator.database.table.uipage.UIPageDTO;
+import tool.automator.database.table.uipage.UIPageService;
+import tool.automator.generator.constants.TestScriptConst;
 import tool.automator.generator.util.ConditionHolder;
-import tool.automator.common.models.interfaces.ConditionIf;
 
 public class TestScriptsGeneratorMain {
 
-	private static HashMap<String, Integer> elementValueSizeMap = new HashMap<String, Integer>();
-	private static ProjectDAOIf projectDAO;
-	private static UIPageDAOIf uiPageDAO;
-	private static ElementDAOIf elementDAO;
-	private static ElementValueDAOIf elementValueDAO;
-	private static PageDependencyDAOIf pageDependencyDAO;
-	private static PageConditionDAOIf pageConditionDAO;
-	private static ElementRestrictionDAOIf elementRestrictionDAO;
-	private static ElementConditionDAOIf elementConditionDAO;
-	private static ElementValueRestrictionDAOIf elementValueRestrictionDAO;
-	private static ElementValueConditionDAOIf elementValueConditionDAO;
+	private static Map<String, Integer> elementValueSizeMap = new HashMap<String, Integer>();
+
+	private static ProjectService projectService;
+	private static UIPageService uiPageService;
+	private static ElementService elementService;
+	private static ElementValueService elementValueService;
+
+	private static PageDependencyService pageDependencyService;
+	private static PageConditionService pageConditionService;
+
+	private static ElementRestrictionService elementRestrictionService;
+	private static ElementConditionService elementConditionService;
+
+	private static ElementValueRestrictionService elementValueRestrictionService;
+	private static ElementValueConditionService elementValueConditionService;
 
 	public static void main(String[] args) {
 		// String project = args[0];
@@ -37,16 +63,16 @@ public class TestScriptsGeneratorMain {
 
 		// System.out.println(project + " " + release + " " + browser);
 
-		projectDAO = DAOFactory.getInstance().getProjectDAO();
-		uiPageDAO = DAOFactory.getInstance().getUIPageDAO();
-		elementDAO = DAOFactory.getInstance().getElementDAO();
-		elementValueDAO = DAOFactory.getInstance().getElementValueDAO();
-		pageDependencyDAO = DAOFactory.getInstance().getPageDependencyDAO();
-		pageConditionDAO = DAOFactory.getInstance().getPageConditionDAO();
-		elementRestrictionDAO = DAOFactory.getInstance().getElementRestrictionDAO();
-		elementConditionDAO = DAOFactory.getInstance().getElementConditionDAO();
-		elementValueRestrictionDAO = DAOFactory.getInstance().getElementValueRestrictionDAO();
-		elementValueConditionDAO = DAOFactory.getInstance().getElementValueConditionDAO();
+		projectService = DAOFactory.getInstance().getProjectService();
+		uiPageService = DAOFactory.getInstance().getUIPageService();
+		elementService = DAOFactory.getInstance().getElementService();
+		elementValueService = DAOFactory.getInstance().getElementValueService();
+		pageDependencyService = DAOFactory.getInstance().getPageDependencyService();
+		pageConditionService = DAOFactory.getInstance().getPageConditionService();
+		elementRestrictionService = DAOFactory.getInstance().getElementRestrictionService();
+		elementConditionService = DAOFactory.getInstance().getElementConditionService();
+		elementValueRestrictionService = DAOFactory.getInstance().getElementValueRestrictionService();
+		elementValueConditionService = DAOFactory.getInstance().getElementValueConditionService();
 
 		start(project, release, browser);
 	}
@@ -61,27 +87,27 @@ public class TestScriptsGeneratorMain {
 	public static void start(String project, String release, String browser) {
 
 		// initialize globals
-		ProjectModel currentProjectObj = projectDAO.getProjectByName(project);
+		ProjectDTO currentProjectObj = projectService.getProjectByName(project);
 
-		UIPageModel globalPageObj = uiPageDAO.getPageByName("Global", currentProjectObj.getId());
+		UIPageDTO globalPageObj = uiPageService.getPageByName("Global", currentProjectObj.getId());
 
 		// initialize project element
-		ElementModel projectElementObj = elementDAO.getElementByScriptName(TestScriptConst.PROJECT, globalPageObj.getId());
-		ElementValueModel projectValueElementObj = elementValueDAO.getElementValueOfElement(project, projectElementObj.getId());
+		ElementDTO projectElementObj = elementService.getElementByScriptName(TestScriptConst.PROJECT, globalPageObj.getId());
+		ElementValueDTO projectValueElementObj = elementValueService.getElementValueOfElement(project, projectElementObj.getId());
 		projectElementNValueMapObj = new ConditionHolder(globalPageObj, projectElementObj, projectValueElementObj);
 
 		// initialize page element
-		ElementModel releaseElementObj = elementDAO.getElementByScriptName(TestScriptConst.RELEASE, globalPageObj.getId());
-		ElementValueModel releaseValueElementObj = elementValueDAO.getElementValueOfElement(release, releaseElementObj.getId());
+		ElementDTO releaseElementObj = elementService.getElementByScriptName(TestScriptConst.RELEASE, globalPageObj.getId());
+		ElementValueDTO releaseValueElementObj = elementValueService.getElementValueOfElement(release, releaseElementObj.getId());
 		releaseElementNValueMapObj = new ConditionHolder(globalPageObj, releaseElementObj, releaseValueElementObj);
 
 		// initialize browser element
-		ElementModel browserElementObj = elementDAO.getElementByScriptName(TestScriptConst.BROWSER, globalPageObj.getId());
-		ElementValueModel browserValueElementObj = elementValueDAO.getElementValueOfElement(browser, browserElementObj.getId());
+		ElementDTO browserElementObj = elementService.getElementByScriptName(TestScriptConst.BROWSER, globalPageObj.getId());
+		ElementValueDTO browserValueElementObj = elementValueService.getElementValueOfElement(browser, browserElementObj.getId());
 		browserElementNValueMapObj = new ConditionHolder(globalPageObj, browserElementObj, browserValueElementObj);
 
 		// find startPages of project & start processing each of them individually
-		List<UIPageModel> startPages = uiPageDAO.getStartPagesOfProject(currentProjectObj.getId());
+		List<UIPageDTO> startPages = uiPageService.getStartPagesOfProject(currentProjectObj.getId());
 
 		for (int i = 0; i < startPages.size(); i++) {
 			processPage(currentProjectObj, startPages.get(i), new ArrayList<ConditionHolder>());
@@ -99,18 +125,18 @@ public class TestScriptsGeneratorMain {
 	/**
 	 * get 1st element of current-page process that element
 	 */
-	public static void processPage(ProjectModel currentProjectObj, UIPageModel currentPageObj, List<ConditionHolder> list) {
-		UIPageModel genericPageObj = null;
-		ElementModel currentElementObj = null;
+	public static void processPage(ProjectDTO currentProjectObj, UIPageDTO currentPageObj, List<ConditionHolder> list) {
+		UIPageDTO genericPageObj = null;
+		ElementDTO currentElementObj = null;
 		int index = -1;
 
 		// get 1st element
 		if ((index = currentPageObj.getPageName().indexOf('[')) > 0) {
-			genericPageObj = uiPageDAO.getPageByName(currentPageObj.getPageName().substring(0, index), currentProjectObj.getId());
-			currentElementObj = elementDAO.getElementOfPageByRelativeOrder(genericPageObj.getId(), 1);
+			genericPageObj = uiPageService.getPageByName(currentPageObj.getPageName().substring(0, index), currentProjectObj.getId());
+			currentElementObj = elementService.getElementOfPageByRelativeOrder(genericPageObj.getId(), 1);
 		}
 		else
-			currentElementObj = elementDAO.getElementOfPageByRelativeOrder(currentPageObj.getId(), 1);
+			currentElementObj = elementService.getElementOfPageByRelativeOrder(currentPageObj.getId(), 1);
 
 		processElement(currentProjectObj, currentPageObj, currentElementObj, list);
 	}
@@ -118,33 +144,33 @@ public class TestScriptsGeneratorMain {
 	/**
 	 * get all possible values of element & process each individually
 	 */
-	public static void processElement(ProjectModel currentProjectObj, UIPageModel currentPageObj, ElementModel currentElementObj, List<ConditionHolder> list) {
-		ElementModel genericElementObj = null;
-		List<ElementValueModel> values = null;
+	public static void processElement(ProjectDTO currentProjectObj, UIPageDTO currentPageObj, ElementDTO currentElementObj, List<ConditionHolder> list) {
+		ElementDTO genericElementObj = null;
+		List<ElementValueDTO> values = null;
 		int indexPage = -1, indexElement = -1;
 
 		// get values of element
 		if ((indexElement = currentElementObj.getScriptName().indexOf('[')) > 0) {
-			UIPageModel genericPageObj = null;
+			UIPageDTO genericPageObj = null;
 
 			if ((indexPage = currentPageObj.getPageName().indexOf('[')) > 0) {
-				genericPageObj = uiPageDAO.getPageByName(currentPageObj.getPageName().substring(0, indexPage), currentProjectObj.getId());
-				genericElementObj = elementDAO.getElementByScriptName(currentElementObj.getScriptName().substring(0, indexElement), genericPageObj.getId());
+				genericPageObj = uiPageService.getPageByName(currentPageObj.getPageName().substring(0, indexPage), currentProjectObj.getId());
+				genericElementObj = elementService.getElementByScriptName(currentElementObj.getScriptName().substring(0, indexElement), genericPageObj.getId());
 			}
 			else
-				genericElementObj = elementDAO.getElementByScriptName(currentElementObj.getScriptName().substring(0, indexElement), currentPageObj.getId());
+				genericElementObj = elementService.getElementByScriptName(currentElementObj.getScriptName().substring(0, indexElement), currentPageObj.getId());
 
-			values = elementValueDAO.getAllElementValuesOfElement(genericElementObj.getId());
+			values = elementValueService.getAllElementValuesOfElement(genericElementObj.getId());
 		}
 		else
-			values = elementValueDAO.getAllElementValuesOfElement(currentElementObj.getId());
+			values = elementValueService.getAllElementValuesOfElement(currentElementObj.getId());
 
 		// should the element be considered in this path?
-		List<ElementRestrictionModel> elementDependencies = elementRestrictionDAO.getElementRestrictionsForElement(currentElementObj.getId());
+		List<ElementRestrictionDTO> elementDependencies = elementRestrictionService.getElementRestrictionsForElement(currentElementObj.getId());
 		List<ConditionIf> conditions = new ArrayList<ConditionIf>();
 
 		for (int i = 0; i < elementDependencies.size(); i++) {
-			conditions.addAll(elementConditionDAO.getElementConditionsByElementRestrictionId(elementDependencies.get(i).getId()));
+			conditions.addAll(elementConditionService.getElementConditionsByElementRestrictionId(elementDependencies.get(i).getId()));
 		}
 
 		boolean conditionsMet = checkIfAllConditionsSatisfied(list, conditions);
@@ -173,13 +199,13 @@ public class TestScriptsGeneratorMain {
 	/**
 	 * process every element value
 	 */
-	public static boolean processElementValue(ProjectModel currentProjectObj, UIPageModel currentPageObj, ElementModel currentElementObj,
-			ElementValueModel currentElementValueObj, List<ConditionHolder> list) {
-		List<ElementValueRestrictionModel> elementValueDependencies = elementValueRestrictionDAO.getElementValueRestrictionsForElementValue(currentElementValueObj.getId());
+	public static boolean processElementValue(ProjectDTO currentProjectObj, UIPageDTO currentPageObj, ElementDTO currentElementObj, ElementValueDTO currentElementValueObj,
+			List<ConditionHolder> list) {
+		List<ElementValueRestrictionDTO> elementValueDependencies = elementValueRestrictionService.getElementValueRestrictionsForElementValue(currentElementValueObj.getId());
 		List<ConditionIf> conditions = new ArrayList<ConditionIf>();
 
 		for (int i = 0; i < elementValueDependencies.size(); i++) {
-			conditions.addAll(elementValueConditionDAO.getElementValueConditionsByElementValueRestrictionId(elementValueDependencies.get(i).getId()));
+			conditions.addAll(elementValueConditionService.getElementValueConditionsByElementValueRestrictionId(elementValueDependencies.get(i).getId()));
 		}
 
 		boolean conditionsMet = checkIfAllConditionsSatisfied(list, conditions);
@@ -208,19 +234,19 @@ public class TestScriptsGeneratorMain {
 	/**
 	 * get next page & process
 	 */
-	public static void processNextPageOfProject(ProjectModel currentProjectObj, UIPageModel currentPageObj, List<ConditionHolder> list) {
+	public static void processNextPageOfProject(ProjectDTO currentProjectObj, UIPageDTO currentPageObj, List<ConditionHolder> list) {
 		List<? extends ConditionIf> conditions;
 		boolean conditionsMet;
 
-		List<PageDependencyModel> pageDependencies = pageDependencyDAO.getPossibleNextPages(currentPageObj.getId());
+		List<PageDependencyDTO> pageDependencies = pageDependencyService.getPossibleNextPages(currentPageObj.getId());
 
 		for (int i = 0; i < pageDependencies.size(); i++) {
-			conditions = pageConditionDAO.getPageConditionsByPageDependencyId(pageDependencies.get(i).getId());
+			conditions = pageConditionService.getPageConditionsByPageDependencyId(pageDependencies.get(i).getId());
 
 			conditionsMet = checkIfAllConditionsSatisfied(list, conditions);
 
 			if (conditionsMet) {
-				currentPageObj = uiPageDAO.getPageById(pageDependencies.get(i).getDestinationPageId());
+				currentPageObj = uiPageService.getPageById(pageDependencies.get(i).getDestinationPageId());
 				processPage(currentProjectObj, currentPageObj, list);
 				return;
 			}
@@ -233,17 +259,17 @@ public class TestScriptsGeneratorMain {
 	/**
 	 * get next element of page & process
 	 */
-	public static void processNextElementOfPage(ProjectModel currentProjectObj, UIPageModel currentPageObj, ElementModel currentElementObj, List<ConditionHolder> list) {
-		UIPageModel genericPageObj = null;
-		ElementModel nextElementObj = null;
+	public static void processNextElementOfPage(ProjectDTO currentProjectObj, UIPageDTO currentPageObj, ElementDTO currentElementObj, List<ConditionHolder> list) {
+		UIPageDTO genericPageObj = null;
+		ElementDTO nextElementObj = null;
 		int index = -1;
 
 		if ((index = currentPageObj.getPageName().indexOf('[')) > 0) {
-			genericPageObj = uiPageDAO.getPageByName(currentPageObj.getPageName().substring(0, index), currentProjectObj.getId());
-			nextElementObj = elementDAO.getElementOfPageByRelativeOrder(genericPageObj.getId(), currentElementObj.getRelativeOrder() + 1);
+			genericPageObj = uiPageService.getPageByName(currentPageObj.getPageName().substring(0, index), currentProjectObj.getId());
+			nextElementObj = elementService.getElementOfPageByRelativeOrder(genericPageObj.getId(), currentElementObj.getRelativeOrder() + 1);
 		}
 		else
-			nextElementObj = elementDAO.getElementOfPageByRelativeOrder(currentPageObj.getId(), currentElementObj.getRelativeOrder() + 1);
+			nextElementObj = elementService.getElementOfPageByRelativeOrder(currentPageObj.getId(), currentElementObj.getRelativeOrder() + 1);
 
 		if (nextElementObj != null)
 			processElement(currentProjectObj, currentPageObj, nextElementObj, list);

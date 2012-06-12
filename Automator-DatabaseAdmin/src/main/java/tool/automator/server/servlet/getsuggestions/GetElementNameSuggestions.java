@@ -8,9 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import tool.automator.common.db.dao.factory.DAOFactory;
-import tool.automator.common.db.daoif.*;
-import tool.automator.common.db.models.*;
+import tool.automator.database.factory.DAOFactory;
+import tool.automator.database.table.element.ElementService;
+import tool.automator.database.table.uipage.UIPageDTO;
+import tool.automator.database.table.uipage.UIPageService;
 
 public class GetElementNameSuggestions extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,16 +21,16 @@ public class GetElementNameSuggestions extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Integer projectId = Integer.parseInt(request.getParameter("PROJECT_ID"));
+		Long projectId = Long.parseLong(request.getParameter("PROJECT_ID"));
 		String pageName = request.getParameter("PAGE_NAME");
 		String inputParam = request.getParameter("INPUT_PARAM");
 
 		if (projectId != null && projectId > 0 && pageName != null && !pageName.trim().isEmpty()) {
 			// get page by name
-			UIPageDAOIf uiPageDAO = DAOFactory.getInstance().getUIPageDAO();
-			UIPageModel uiPage = uiPageDAO.getPageByName(pageName, projectId);
+			UIPageService uiPageDAO = DAOFactory.getInstance().getUIPageService();
+			UIPageDTO uiPage = uiPageDAO.getPageByName(pageName, projectId);
 			// get suggestions for element names
-			ElementDAOIf elementDAO = DAOFactory.getInstance().getElementDAO();
+			ElementService elementDAO = DAOFactory.getInstance().getElementService();
 			List<String> suggestions = elementDAO.getFilteredElementNames(uiPage.getId(), inputParam);
 
 			// print response

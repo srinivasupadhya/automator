@@ -1,7 +1,7 @@
-<%@page import="tool.automator.common.db.models.ElementValueConditionModel"%>
-<%@page import="tool.automator.common.db.models.ElementConditionModel"%>
-<%@page import="tool.automator.common.db.models.PageConditionModel"%>
-<%@page import="tool.automator.common.models.interfaces.ConditionIf"%>
+<%@page import="tool.automator.database.table.elementvaluecondition.ElementValueConditionDTO"%>
+<%@page import="tool.automator.database.table.elementcondition.ElementConditionDTO"%>
+<%@page import="tool.automator.database.table.pagecondition.PageConditionDTO"%>
+<%@page import="tool.automator.database.table.ConditionIf"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.HashMap"%>

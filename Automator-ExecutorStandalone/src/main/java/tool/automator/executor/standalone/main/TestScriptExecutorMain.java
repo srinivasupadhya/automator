@@ -1,12 +1,12 @@
 package tool.automator.executor.standalone.main;
 
 import java.io.File;
-import java.util.*;
+import java.util.List;
 
-import tool.automator.common.models.interfaces.ElementModelIf;
-import tool.automator.common.models.interfaces.ElementValueModelIf;
-import tool.automator.common.models.interfaces.ProjectModelIf;
-import tool.automator.common.models.interfaces.UIPageModelIf;
+import tool.automator.database.table.element.ElementModelIf;
+import tool.automator.database.table.elementvalue.ElementValueModelIf;
+import tool.automator.database.table.project.ProjectModelIf;
+import tool.automator.database.table.uipage.UIPageModelIf;
 import tool.automator.executor.datamanager.ElementDataManager;
 import tool.automator.executor.datamanager.ElementValueDataManager;
 import tool.automator.executor.datamanager.PageDataManager;

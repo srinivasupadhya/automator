@@ -6,9 +6,9 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import tool.automator.database.xml.models.ElementModelXMLBind;
 import tool.automator.executor.util.FlightInformation;
 import tool.automator.executor.webdriver.WebDriverHandle;
-import tool.automator.executor.xml.models.ElementModelXMLBind;
 
 public class SelectFlight {
 	public static void test(String[] args) {
@@ -96,7 +96,7 @@ public class SelectFlight {
 		System.out.println(radioButtonId);
 		
 		if(radioButtonId != null)
-			webDriver.doAction(new ElementModelXMLBind(-1, "", -1, radioButtonId, "ID", "RADIOBUTTON", 1, -1, 1, false), "CLICK");
+			webDriver.doAction(new ElementModelXMLBind(-1L, "", -1L, radioButtonId, "ID", "RADIOBUTTON", 1, -1, 1, false), "CLICK");
 		else
 			System.out.println("No Flight Solution");
 		

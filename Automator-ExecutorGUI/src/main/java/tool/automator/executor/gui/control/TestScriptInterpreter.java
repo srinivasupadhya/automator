@@ -3,11 +3,13 @@ package tool.automator.executor.gui.control;
 import java.util.ArrayList;
 import java.util.List;
 
+import tool.automator.database.constants.UIElementTypesConst;
+import tool.automator.database.table.element.ElementModelIf;
+import tool.automator.database.table.elementvalue.ElementValueModelIf;
+import tool.automator.database.table.project.ProjectModelIf;
+import tool.automator.database.table.uipage.UIPageModelIf;
+import tool.automator.database.xml.models.ElementValueModelXMLBind;
 import tool.automator.executor.constants.*;
-import tool.automator.common.models.interfaces.ElementModelIf;
-import tool.automator.common.models.interfaces.ElementValueModelIf;
-import tool.automator.common.models.interfaces.ProjectModelIf;
-import tool.automator.common.models.interfaces.UIPageModelIf;
 import tool.automator.executor.aircanada.AirCanadaCustomFunction;
 import tool.automator.executor.datamanager.ElementDataManager;
 import tool.automator.executor.datamanager.ElementValueDataManager;
@@ -16,7 +18,6 @@ import tool.automator.executor.datamanager.ProjectDataManager;
 import tool.automator.executor.parser.TestScriptParser;
 import tool.automator.executor.util.ElementNValuePair;
 import tool.automator.executor.webdriver.WebDriverHandle;
-import tool.automator.executor.xml.models.ElementValueModelXMLBind;
 
 public class TestScriptInterpreter {
 	private ProjectDataManager projectDAO;
@@ -132,7 +133,7 @@ public class TestScriptInterpreter {
 				else
 					elementValueObj = elementValueDAO.getElementValueObj(elementScriptValue, elementObj.getId());
 				if (elementValueObj == null)
-					elementValueObj = new ElementValueModelXMLBind(-1, -1, elementScriptValue, "", false, false);
+					elementValueObj = new ElementValueModelXMLBind(-1L, -1L, elementScriptValue, "", false, false);
 
 				scriptElementValuePairs.add(new ElementNValuePair(elementObj, elementValueObj));
 
@@ -180,7 +181,7 @@ public class TestScriptInterpreter {
 			else
 				elementValueObj = elementValueDAO.getElementValueObj(elementScriptValue, elementObj.getId());
 			if (elementValueObj == null)
-				elementValueObj = new ElementValueModelXMLBind(-1, -1, elementScriptValue, "", false, false);
+				elementValueObj = new ElementValueModelXMLBind(-1L, -1L, elementScriptValue, "", false, false);
 
 			System.out.println("=] " + functionName + " : " + elementScriptValue);
 
@@ -197,12 +198,12 @@ public class TestScriptInterpreter {
 		else if (parser.getCurrentLineType() == LineTypeConst.END_CASE || parser.getCurrentLineType() == LineTypeConst.END_GLOBAL) {
 
 		}
-		else if(parser.getCurrentLineType() == LineTypeConst.END_STEP)
+		else if (parser.getCurrentLineType() == LineTypeConst.END_STEP)
 			stepComplete = true;
-		else if(parser.getCurrentLineType() == LineTypeConst.START_STEP)
+		else if (parser.getCurrentLineType() == LineTypeConst.START_STEP)
 			stepComplete = false;
 	}
-	
+
 	public boolean stepComplete() {
 		return stepComplete;
 	}

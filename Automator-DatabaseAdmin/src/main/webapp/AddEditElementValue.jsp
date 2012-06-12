@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="tool.automator.common.db.models.ElementModel"%>
-<%@page import="tool.automator.common.db.models.ElementValueModel"%>
+<%@page import="tool.automator.database.table.element.ElementDTO"%>
+<%@page import="tool.automator.database.table.elementvalue.ElementValueDTO"%>
 <%@page import="java.util.HashMap"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -17,8 +17,8 @@
 <body>
 	<%
 		String action = (String) request.getAttribute("ACTION");
-		ElementModel element = (ElementModel) request.getAttribute("ELEMENT");
-		ElementValueModel elementValue = (ElementValueModel) request.getAttribute("ELEMENT_VALUE");
+		ElementDTO element = (ElementDTO) request.getAttribute("ELEMENT");
+		ElementValueDTO elementValue = (ElementValueDTO) request.getAttribute("ELEMENT_VALUE");
 		HashMap<Integer, String> elementIdNameMap = (HashMap<Integer, String>) request.getAttribute("ELEMENT_ID_NAME_MAP");
 	%>
 	<form action="SaveElementValue" method="POST">

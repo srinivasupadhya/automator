@@ -13,6 +13,7 @@
 		<module>Automator-DatabaseAccess</module>
 		<module>Automator-DatabaseAdmin</module>
 		<module>Automator-Generator</module>
+		<module>Automator-ExecutorCommon</module>
 		<module>Automator-ExecutorStandalone</module>
 		<module>Automator-ExecutorGUI</module>
 	</modules>
@@ -145,6 +146,13 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
 			<version>${spring.version}</version>
+		</dependency>
+
+		<!-- Simple XML -->
+		<dependency>
+			<groupId>org.simpleframework</groupId>
+			<artifactId>simple-xml</artifactId>
+			<version>2.6.4</version>
 		</dependency>
 
 		<!-- JUnit -->

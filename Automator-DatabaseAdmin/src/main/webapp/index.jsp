@@ -1,9 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="java.util.List"%>
-<%@page import="tool.automator.common.db.dao.factory.DAOFactory"%>
-<%@page import="tool.automator.common.db.daoif.ProjectDAOIf"%>
-<%@page import="tool.automator.common.db.models.ProjectModel"%>
+<%@page import="tool.automator.database.factory.DAOFactory"%>
+<%@page import="tool.automator.database.table.project.ProjectRepository"%>
+<%@page import="tool.automator.database.table.project.ProjectDTO"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,8 +18,8 @@
 </head>
 <body>
 	<%
-		ProjectDAOIf projectDAO = DAOFactory.getInstance().getProjectDAO();
-		List<ProjectModel> projectList = projectDAO.getAllProjects();
+		ProjectRepository projectDAO = DAOFactory.getInstance().getProjectDAO();
+		List<ProjectDTO> projectList = projectDAO.getAllProjects();
 	%>
 	<h3>Select Project</h3>
 	<table id="newspaper-a">

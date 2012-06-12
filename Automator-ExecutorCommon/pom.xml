@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.thoughtworks</groupId>
+		<artifactId>Automator-Parent</artifactId>
+		<version>1</version>
+	</parent>
+	<artifactId>Automator-ExecutorCommon</artifactId>
+	<packaging>jar</packaging>
+	<name>Automator-ExecutorCommon</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.thoughtworks</groupId>
+			<artifactId>Automator-DatabaseAccess</artifactId>
+			<version>1</version>
+		</dependency>
+
+		<!-- Selenium / Web-driver -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<version>2.22.0</version>
+		</dependency>
+	</dependencies>
+</project>

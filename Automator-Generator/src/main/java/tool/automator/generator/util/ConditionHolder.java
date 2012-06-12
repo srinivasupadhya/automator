@@ -1,43 +1,43 @@
 package tool.automator.generator.util;
 
-import tool.automator.common.db.models.ElementModel;
-import tool.automator.common.db.models.ElementValueModel;
-import tool.automator.common.db.models.UIPageModel;
-import tool.automator.common.models.interfaces.ConditionIf;
+import tool.automator.database.table.ConditionIf;
+import tool.automator.database.table.element.ElementDTO;
+import tool.automator.database.table.elementvalue.ElementValueDTO;
+import tool.automator.database.table.uipage.UIPageDTO;
 
 public class ConditionHolder {
-	private UIPageModel page;
-	private ElementModel element;
-	private ElementValueModel elementValue;
+	private UIPageDTO page;
+	private ElementDTO element;
+	private ElementValueDTO elementValue;
 
-	public ConditionHolder(UIPageModel page, ElementModel element, ElementValueModel elementValue) {
+	public ConditionHolder(UIPageDTO page, ElementDTO element, ElementValueDTO elementValue) {
 		super();
 		this.page = page;
 		this.element = element;
 		this.elementValue = elementValue;
 	}
 
-	public void setPage(UIPageModel page) {
+	public void setPage(UIPageDTO page) {
 		this.page = page;
 	}
 
-	public UIPageModel getPage() {
+	public UIPageDTO getPage() {
 		return page;
 	}
 
-	public ElementModel getElement() {
+	public ElementDTO getElement() {
 		return element;
 	}
 
-	public void setElement(ElementModel element) {
+	public void setElement(ElementDTO element) {
 		this.element = element;
 	}
 
-	public ElementValueModel getElementValue() {
+	public ElementValueDTO getElementValue() {
 		return elementValue;
 	}
 
-	public void setElementValue(ElementValueModel elementValue) {
+	public void setElementValue(ElementValueDTO elementValue) {
 		this.elementValue = elementValue;
 	}
 

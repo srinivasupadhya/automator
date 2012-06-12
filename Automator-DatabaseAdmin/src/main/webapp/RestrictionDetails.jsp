@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<%@page import="tool.automator.common.db.models.ElementRestrictionModel"%>
-<%@page import="tool.automator.common.db.models.ElementValueRestrictionModel"%>
+<%@page import="tool.automator.database.table.elementrestriction.ElementRestrictionDTO"%>
+<%@page import="tool.automator.database.table.elementvaluerestriction.ElementValueRestrictionDTO"%>
 <%@page import="java.util.List"%>
 <%@page import="java.util.HashMap"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -21,9 +21,9 @@
 		int pageId = (Integer) request.getAttribute("PAGE_ID");
 		int elementId = (Integer) request.getAttribute("ELEMENT_ID");
 		int elementValueId = (Integer) request.getAttribute("ELEMENT_VALUE_ID");
-	
-		List<ElementRestrictionModel> elementRestrictions = (List<ElementRestrictionModel>) request.getAttribute("ELEMENT_RESTRICTIONS");
-		List<ElementValueRestrictionModel> elementValueRestrictions = (List<ElementValueRestrictionModel>) request.getAttribute("ELEMENT_VALUE_RESTRICTIONS");
+			
+		List<ElementRestrictionDTO> elementRestrictions = (List<ElementRestrictionDTO>) request.getAttribute("ELEMENT_RESTRICTIONS");
+		List<ElementValueRestrictionDTO> elementValueRestrictions = (List<ElementValueRestrictionDTO>) request.getAttribute("ELEMENT_VALUE_RESTRICTIONS");
 		
 		HashMap<Integer, String> pageIdNameMap = (HashMap<Integer, String>) request.getAttribute("PAGE_ID_NAME_MAP");
 		HashMap<Integer, String> elementIdNameMap = (HashMap<Integer, String>) request.getAttribute("ELEMENT_ID_NAME_MAP");
@@ -35,12 +35,16 @@
 				<th scope="col" ><%=conditionOn%> Restriction Id</th>
 				<th scope="col" >Page Id</th>
 				<th scope="col" >Element Id</th>
-				<% if(conditionOn.equals("ELEMENT_VALUE")) out.println("<th scope=\"col\" >ElementValue Id</th>"); %>
+				<%
+					if(conditionOn.equals("ELEMENT_VALUE")) out.println("<th scope=\"col\" >ElementValue Id</th>");
+				%>
 				<th scope="col" ></th>
 				<th scope="col" ></th>
 			</tr>
 		</thead>
-		<% if(conditionOn.equals("ELEMENT")) { %>
+		<%
+			if(conditionOn.equals("ELEMENT")) {
+		%>
 		<tbody>
 			<tr>
 			<td colspan="5" align="right">
@@ -49,8 +53,8 @@
 			</tr>
 			<tr><td colspan="5" style="padding: 0; margin: 0"><hr /></td></tr>
 			<%
-			for (int i = 0; i < elementRestrictions.size(); i++) {
-				ElementRestrictionModel elementRestriction = elementRestrictions.get(i);
+				for (int i = 0; i < elementRestrictions.size(); i++) {
+						ElementRestrictionDTO elementRestriction = elementRestrictions.get(i);
 			%>
 				<tr>
 				<td><%=elementRestriction.getId()%></td>
@@ -65,9 +69,13 @@
 				</td>
 				<td><a href="GetConditionDetails?CONDITION_ON=ELEMENT&CONDITION_NUMBER=<%=elementRestriction.getId()%>">conditions</a></td>
 				</tr>
-			<% } %>
+			<%
+				}
+			%>
 		</tbody>
-		<% } else if(conditionOn.equals("ELEMENT_VALUE")) { %>
+		<%
+			} else if(conditionOn.equals("ELEMENT_VALUE")) {
+		%>
 		<tbody>
 			<tr>
 			<td colspan="6" align="right">
@@ -76,8 +84,8 @@
 			</tr>
 			<tr><td colspan="6" style="padding: 0; margin: 0"><hr /></td></tr>
 			<%
-			for (int i = 0; i < elementValueRestrictions.size(); i++) {
-				ElementValueRestrictionModel elementValueRestriction = elementValueRestrictions.get(i);
+				for (int i = 0; i < elementValueRestrictions.size(); i++) {
+					ElementValueRestrictionDTO elementValueRestriction = elementValueRestrictions.get(i);
 			%>
 				<tr>
 				<td><%=elementValueRestriction.getId()%></td>

@@ -7,8 +7,8 @@ import java.util.Set;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import tool.automator.database.xml.models.ElementModelXMLBind;
 import tool.automator.executor.webdriver.WebDriverHandle;
-import tool.automator.executor.xml.models.ElementModelXMLBind;
 
 public class SelectSeat {
 	public static void test(String[] args) throws InterruptedException {
@@ -19,7 +19,7 @@ public class SelectSeat {
 
 		Thread.sleep(10000);
 
-		webDriver.doAction(new ElementModelXMLBind(-1, "", -1, "SELECT SEAT", "LINKTEXT", "BUTTON", -1, -1, -1, true), "CLICK");
+		webDriver.doAction(new ElementModelXMLBind(-1L, "", -1L, "SELECT SEAT", "LINKTEXT", "BUTTON", -1, -1, -1, true), "CLICK");
 
 		String originalWindowHandle = webDriver.getDriver().getWindowHandle();
 		Set<String> allWindowHandle = webDriver.getDriver().getWindowHandles();
@@ -79,7 +79,7 @@ public class SelectSeat {
 			noOfRemainingSeatsToSelect--;
 		}
 
-		webDriver.doAction(new ElementModelXMLBind(-1, "", -1, "CONTINUE", "LINKTEXT", "BUTTON", -1, -1, -1, true), "CLICK");
+		webDriver.doAction(new ElementModelXMLBind(-1L, "", -1L, "CONTINUE", "LINKTEXT", "BUTTON", -1, -1, -1, true), "CLICK");
 
 		webDriver.getDriver().switchTo().window(originalWindowHandle);
 	}

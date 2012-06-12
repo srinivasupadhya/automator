@@ -3,57 +3,62 @@ package tool.automator.client.framework.models.holders;
 import java.util.ArrayList;
 import java.util.List;
 
-import tool.automator.common.db.dao.factory.DAOFactory;
-import tool.automator.common.db.daoif.*;
-import tool.automator.common.db.models.*;
+import tool.automator.database.factory.DAOFactory;
+import tool.automator.database.table.element.ElementDTO;
+import tool.automator.database.table.elementcondition.ElementConditionDTO;
+import tool.automator.database.table.elementcondition.ElementConditionService;
+import tool.automator.database.table.elementrestriction.ElementRestrictionDTO;
+import tool.automator.database.table.elementrestriction.ElementRestrictionService;
+import tool.automator.database.table.elementvalue.ElementValueDTO;
+import tool.automator.database.table.elementvalue.ElementValueService;
 
 public class ElementDetailsModel {
-	private ElementModel element;
-	private List<ElementRestrictionModel> elementRestrictions;
-	private List<ElementConditionModel> elementConditions;
+	private ElementDTO element;
+	private List<ElementRestrictionDTO> elementRestrictions;
+	private List<ElementConditionDTO> elementConditions;
 	private List<ElementValueDetailsModel> elementValueDetailsList;
 
-	public ElementDetailsModel(ElementModel element) {
+	public ElementDetailsModel(ElementDTO element) {
 		this.element = element;
-		ElementRestrictionDAOIf elementRestrictionDAO = DAOFactory.getInstance().getElementRestrictionDAO();
+		ElementRestrictionService elementRestrictionDAO = DAOFactory.getInstance().getElementRestrictionService();
 		elementRestrictions = elementRestrictionDAO.getElementRestrictionsForElement(element.getId());
-		elementConditions = new ArrayList<ElementConditionModel>();
+		elementConditions = new ArrayList<ElementConditionDTO>();
 		if (elementRestrictions != null) {
-			ElementConditionDAOIf elementConditionDAO = DAOFactory.getInstance().getElementConditionDAO();
-			for (ElementRestrictionModel currentElementRestriction : elementRestrictions)
+			ElementConditionService elementConditionDAO = DAOFactory.getInstance().getElementConditionService();
+			for (ElementRestrictionDTO currentElementRestriction : elementRestrictions)
 				elementConditions.addAll(elementConditionDAO.getElementConditionsByElementRestrictionId(currentElementRestriction.getId()));
 		}
 		else
-			elementRestrictions = new ArrayList<ElementRestrictionModel>();
-		ElementValueDAOIf elementValueDAO = DAOFactory.getInstance().getElementValueDAO();
-		List<ElementValueModel> elementValueList = elementValueDAO.getAllElementValuesOfElement(element.getId());
+			elementRestrictions = new ArrayList<ElementRestrictionDTO>();
+		ElementValueService elementValueDAO = DAOFactory.getInstance().getElementValueService();
+		List<ElementValueDTO> elementValueList = elementValueDAO.getAllElementValuesOfElement(element.getId());
 		elementValueDetailsList = new ArrayList<ElementValueDetailsModel>();
 		for (int i = 0; i < elementValueList.size(); i++) {
 			elementValueDetailsList.add(new ElementValueDetailsModel(elementValueList.get(i)));
 		}
 	}
 
-	public ElementModel getElement() {
+	public ElementDTO getElement() {
 		return element;
 	}
 
-	public void setElement(ElementModel element) {
+	public void setElement(ElementDTO element) {
 		this.element = element;
 	}
 
-	public List<ElementRestrictionModel> getElementRestrictions() {
+	public List<ElementRestrictionDTO> getElementRestrictions() {
 		return elementRestrictions;
 	}
 
-	public void setElementRestrictions(List<ElementRestrictionModel> elementRestrictions) {
+	public void setElementRestrictions(List<ElementRestrictionDTO> elementRestrictions) {
 		this.elementRestrictions = elementRestrictions;
 	}
 
-	public List<ElementConditionModel> getElementConditions() {
+	public List<ElementConditionDTO> getElementConditions() {
 		return elementConditions;
 	}
 
-	public void setElementConditions(List<ElementConditionModel> elementConditions) {
+	public void setElementConditions(List<ElementConditionDTO> elementConditions) {
 		this.elementConditions = elementConditions;
 	}
 

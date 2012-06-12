@@ -1,53 +1,61 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
-	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans
-http://www.springframework.org/schema/beans/spring-beans.xsd
-http://www.springframework.org/schema/aop
-http://www.springframework.org/schema/aop/spring-aop.xsd
-http://www.springframework.org/schema/tx
-http://www.springframework.org/schema/tx/spring-tx.xsd
-http://www.springframework.org/schema/context
-http://www.springframework.org/schema/context/spring-context.xsd">
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:jpa="http://www.springframework.org/schema/data/jpa" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation=
+		"http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/data/jpa 
+		http://www.springframework.org/schema/data/jpa/spring-jpa-1.0.xsd
+		http://www.springframework.org/schema/aop 
+       	http://www.springframework.org/schema/aop/spring-aop.xsd
+       	http://www.springframework.org/schema/tx
+       	http://www.springframework.org/schema/tx/spring-tx.xsd
+       	http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+ 
+	<!-- activate annotation configured components -->
+	<context:annotation-config />
 
-	<bean id="entityManagerFactory"
-		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-		<property name="persistenceUnitName" value="SampleTestPU" />
-		<property name="dataSource" ref="dataSource" />
+	<!-- scan components for annotations within the configured package -->
+	<context:component-scan base-package="tool.automator.database">
+		<context:exclude-filter type="annotation" expression="org.springframework.context.annotation.Configuration" />
+	</context:component-scan>
+	
+	<jpa:repositories base-package="tool.automator.database" />
+
+	<!-- core -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
 		<property name="jpaVendorAdapter">
 			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-				<property name="showSql" value="false" />
 				<property name="generateDdl" value="true" />
-				<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
 			</bean>
 		</property>
+		<property name="persistenceUnitName" value="SampleTestPU" />
 	</bean>
 
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-		<property name="url" value="jdbc:mysql://localhost/automator" />
-		<property name="username" value="root" />
-		<property name="password" value="" />
-	</bean>
+	<bean id="projectService" class="tool.automator.database.table.project.ProjectServiceImpl"></bean>
+	<bean id="pageService" class="tool.automator.database.table.uipage.UIPageServiceImpl"></bean>
+	<bean id="elementService" class="tool.automator.database.table.element.ElementServiceImpl"></bean>
+	<bean id="elementValueService" class="tool.automator.database.table.elementvalue.ElementValueServiceImpl"></bean>
 	
-	<bean id="projectDAO" class="tool.automator.common.db.daoimpl.ProjectDAOImpl"></bean>
-	<bean id="pageDAO" class="tool.automator.common.db.daoimpl.UIPageDAOImpl"></bean>
-	<bean id="elementDAO" class="tool.automator.common.db.daoimpl.ElementDAOImpl"></bean>
-	<bean id="elementValueDAO" class="tool.automator.common.db.daoimpl.ElementValueDAOImpl"></bean>
-	<bean id="pageDependencyDAO" class="tool.automator.common.db.daoimpl.PageDependencyDAOImpl"></bean>
-	<bean id="pageConditionDAO" class="tool.automator.common.db.daoimpl.PageConditionDAOImpl"></bean>
-	<bean id="elementRestrictionDAO" class="tool.automator.common.db.daoimpl.ElementRestrictionDAOImpl"></bean>
-	<bean id="elementConditionDAO" class="tool.automator.common.db.daoimpl.ElementConditionDAOImpl"></bean>
-	<bean id="elementValueRestrictionDAO" class="tool.automator.common.db.daoimpl.ElementValueRestrictionDAOImpl"></bean>
-	<bean id="elementValueConditionDAO" class="tool.automator.common.db.daoimpl.ElementValueConditionDAOImpl"></bean>
+	<bean id="pageDependencyService" class="tool.automator.database.table.pagedependency.PageDependencyServiceImpl"></bean>
+	<bean id="pageConditionService" class="tool.automator.database.table.pagecondition.PageConditionServiceImpl"></bean>
 	
-	<tx:annotation-driven />
+	<bean id="elementRestrictionService" class="tool.automator.database.table.elementrestriction.ElementRestrictionServiceImpl"></bean>
+	<bean id="elementConditionService" class="tool.automator.database.table.elementcondition.ElementConditionServiceImpl"></bean>
+	
+	<bean id="elementValueRestrictionService" class="tool.automator.database.table.elementvaluerestriction.ElementValueRestrictionServiceImpl"></bean>
+	<bean id="elementValueConditionService" class="tool.automator.database.table.elementvaluecondition.ElementValueConditionServiceImpl"></bean>
+
+	<!-- transaction -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
 
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
-		<property name="dataSource" ref="dataSource" />
 	</bean>
-	
-	<bean id="persistenceAnnotation" class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
 </beans>

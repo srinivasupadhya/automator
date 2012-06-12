@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@page import="tool.automator.common.db.models.UIPageModel"%>
-<%@page import="tool.automator.common.db.models.ElementModel"%>
+<%@page import="tool.automator.database.table.uipage.UIPageDTO"%>
+<%@page import="tool.automator.database.table.element.ElementDTO"%>
 <%@page import="java.util.HashMap"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -17,8 +17,8 @@
 <body>
 	<%
 		String action = (String) request.getAttribute("ACTION");
-		UIPageModel uipage = (UIPageModel) request.getAttribute("PAGE");
-		ElementModel element = (ElementModel) request.getAttribute("ELEMENT");
+		UIPageDTO uipage = (UIPageDTO) request.getAttribute("PAGE");
+		ElementDTO element = (ElementDTO) request.getAttribute("ELEMENT");
 		HashMap<Integer, String> pageIdNameMap = (HashMap<Integer, String>) request.getAttribute("PAGE_ID_NAME_MAP");
 	%>
 	<form action="SaveElement" method="POST">

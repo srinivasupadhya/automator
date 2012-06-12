@@ -1,14 +1,15 @@
 package tool.automator.server.servlet.save;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import tool.automator.common.db.dao.factory.DAOFactory;
-import tool.automator.common.db.daoif.*;
-import tool.automator.common.db.models.*;
+import tool.automator.database.factory.DAOFactory;
+import tool.automator.database.table.element.ElementDTO;
+import tool.automator.database.table.element.ElementService;
 
 public class SaveElement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -22,10 +23,10 @@ public class SaveElement extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int pageId = Integer.parseInt(request.getParameter("PAGE_ID"));
-		int elementId = 0;
+		Long pageId = Long.parseLong(request.getParameter("PAGE_ID"));
+		Long elementId = 0L;
 		if (request.getParameter("ELEMENT_ID") != null && !request.getParameter("ELEMENT_ID").trim().isEmpty())
-			elementId = Integer.parseInt(request.getParameter("ELEMENT_ID"));
+			elementId = Long.parseLong(request.getParameter("ELEMENT_ID"));
 		String scriptName = request.getParameter("SCRIPT_NAME");
 		String uiIdentifier = request.getParameter("UI_IDENTIFIER");
 		String uiElementGetType = request.getParameter("UI_ELEMENT_GET_TYPE");
@@ -36,10 +37,11 @@ public class SaveElement extends HttpServlet {
 		boolean hidden = Boolean.parseBoolean(request.getParameter("HIDDEN"));
 
 		// save element
-		ElementDAOIf elementDAO = DAOFactory.getInstance().getElementDAO();
-		ElementModel element = new ElementModel(scriptName, pageId, uiIdentifier, uiElementGetType, uiElementType, relativeOrder, release, optional, hidden);
-		element.setId(elementId);
+		ElementService elementDAO = DAOFactory.getInstance().getElementService();
+		ElementDTO element = elementDAO.getElementById(elementId);
+		element.update(scriptName, pageId, uiIdentifier, uiElementGetType, uiElementType, relativeOrder, release, optional, hidden);
 		elementDAO.saveElement(element);
+
 		// forward to JSP
 		response.sendRedirect("GetPageDetails?PAGE_ID=" + pageId);
 	}

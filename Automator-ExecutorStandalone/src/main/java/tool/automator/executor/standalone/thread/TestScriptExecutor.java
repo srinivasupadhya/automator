@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import tool.automator.database.constants.UIElementTypesConst;
+import tool.automator.database.table.element.ElementModelIf;
+import tool.automator.database.table.elementvalue.ElementValueModelIf;
+import tool.automator.database.table.project.ProjectModelIf;
+import tool.automator.database.table.uipage.UIPageModelIf;
+import tool.automator.database.xml.models.ElementValueModelXMLBind;
 import tool.automator.executor.constants.*;
-import tool.automator.common.models.interfaces.ElementModelIf;
-import tool.automator.common.models.interfaces.ElementValueModelIf;
-import tool.automator.common.models.interfaces.ProjectModelIf;
-import tool.automator.common.models.interfaces.UIPageModelIf;
 import tool.automator.executor.aircanada.AirCanadaCustomFunction;
 import tool.automator.executor.datamanager.ElementDataManager;
 import tool.automator.executor.datamanager.ElementValueDataManager;
@@ -18,7 +20,6 @@ import tool.automator.executor.parser.TestScriptParser;
 import tool.automator.executor.standalone.fileio.FileConsoleAccess;
 import tool.automator.executor.util.ElementNValuePair;
 import tool.automator.executor.webdriver.WebDriverHandle;
-import tool.automator.executor.xml.models.ElementValueModelXMLBind;
 
 public class TestScriptExecutor implements Runnable {
 	private ProjectDataManager projectDAO;
@@ -152,7 +153,7 @@ public class TestScriptExecutor implements Runnable {
 					else
 						elementValueObj = elementValueDAO.getElementValueObj(elementScriptValue, elementObj.getId());
 					if (elementValueObj == null)
-						elementValueObj = new ElementValueModelXMLBind(-1, -1, elementScriptValue, "", false, false);
+						elementValueObj = new ElementValueModelXMLBind(-1L, -1L, elementScriptValue, "", false, false);
 
 					scriptElementValuePairs.add(new ElementNValuePair(elementObj, elementValueObj));
 
@@ -200,7 +201,7 @@ public class TestScriptExecutor implements Runnable {
 				else
 					elementValueObj = elementValueDAO.getElementValueObj(elementScriptValue, elementObj.getId());
 				if (elementValueObj == null)
-					elementValueObj = new ElementValueModelXMLBind(-1, -1, elementScriptValue, "", false, false);
+					elementValueObj = new ElementValueModelXMLBind(-1L, -1L, elementScriptValue, "", false, false);
 
 				System.out.println(testScriptFileName.substring(testScriptFileName.lastIndexOf('/') + 1) + "=] " + functionName + " : " + elementScriptValue);
 
