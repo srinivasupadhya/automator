@@ -9,7 +9,7 @@ import tool.automator.database.table.AbstractRepositoryCustom;
 public class ProjectRepositoryImpl extends AbstractRepositoryCustom implements ProjectRepositoryCustom {
 	@SuppressWarnings("unchecked")
 	public List<ProjectDTO> getAllProjectsByProjectName() {
-		return (List<ProjectDTO>) em.createQuery("SELECT p FROM ProjectModel p order by p.projectName").getResultList();
+		return (List<ProjectDTO>) em.createQuery("SELECT p FROM ProjectDTO p order by p.projectName").getResultList();
 	}
 
 	public Map<Long, String> getProjectIdNameMap() {

@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="tool.automator.database.table.element.ElementDTO"%>
@@ -19,7 +20,7 @@
 		String action = (String) request.getAttribute("ACTION");
 		ElementDTO element = (ElementDTO) request.getAttribute("ELEMENT");
 		ElementValueDTO elementValue = (ElementValueDTO) request.getAttribute("ELEMENT_VALUE");
-		HashMap<Integer, String> elementIdNameMap = (HashMap<Integer, String>) request.getAttribute("ELEMENT_ID_NAME_MAP");
+		Map<Long, String> elementIdNameMap = (Map<Long, String>) request.getAttribute("ELEMENT_ID_NAME_MAP");
 	%>
 	<form action="SaveElementValue" method="POST">
 		<input type="hidden" name="ACTION" value="<%=action%>" />

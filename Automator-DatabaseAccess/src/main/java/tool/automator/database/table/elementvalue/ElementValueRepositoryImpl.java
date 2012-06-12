@@ -11,7 +11,7 @@ import tool.automator.database.table.AbstractRepositoryCustom;
 public class ElementValueRepositoryImpl extends AbstractRepositoryCustom implements ElementValueRepositoryCustom {
 	@SuppressWarnings("unchecked")
 	public List<ElementValueDTO> getAllElementValuesByScriptValue() {
-		return (List<ElementValueDTO>) em.createQuery("SELECT ev FROM ElementValueModel ev order by ev.scriptValue").getResultList();
+		return (List<ElementValueDTO>) em.createQuery("SELECT ev FROM ElementValueDTO ev order by ev.scriptValue").getResultList();
 	}
 
 	public HashMap<Long, String> getElementValueIdNameMap() {
@@ -24,7 +24,7 @@ public class ElementValueRepositoryImpl extends AbstractRepositoryCustom impleme
 
 	@SuppressWarnings("unchecked")
 	public List<String> getFilteredElementValues(Long elementId, String inputParam) {
-		String jpaQL = "SELECT ev FROM ElementValueModel ev WHERE ev.elementId = :elementId";
+		String jpaQL = "SELECT ev FROM ElementValueDTO ev WHERE ev.elementId = :elementId";
 		if (inputParam != null && !inputParam.isEmpty())
 			jpaQL += " AND ev.scriptValue like '%" + inputParam + "%'";
 		Query query = em.createQuery(jpaQL);

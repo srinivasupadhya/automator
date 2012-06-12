@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@page import="tool.automator.database.table.elementvaluecondition.ElementValueConditionDTO"%>
 <%@page import="tool.automator.database.table.elementcondition.ElementConditionDTO"%>
 <%@page import="tool.automator.database.table.pagecondition.PageConditionDTO"%>
@@ -61,16 +62,16 @@ function getElementValueSuggestions() {
 <body class="claro">
 	<%
 		String conditionOn = (String) request.getAttribute("CONDITION_ON");
-		int sourcePageId = (Integer) request.getAttribute("SOURCE_PAGE_ID");
-		int destinationPageId = (Integer) request.getAttribute("DESTINATION_PAGE_ID");
-		int elementId = (Integer) request.getAttribute("ELEMENT_ID");
-		int elementValueId = (Integer) request.getAttribute("ELEMENT_VALUE_ID");
+		Long sourcePageId = (Long) request.getAttribute("SOURCE_PAGE_ID");
+		Long destinationPageId = (Long) request.getAttribute("DESTINATION_PAGE_ID");
+		Long elementId = (Long) request.getAttribute("ELEMENT_ID");
+		Long elementValueId = (Long) request.getAttribute("ELEMENT_VALUE_ID");
 	
 		String action = (String) request.getAttribute("ACTION");
 		ConditionIf condition = (ConditionIf) request.getAttribute("CONDITION");
-		HashMap<Integer, String> pageIdNameMap = (HashMap<Integer, String>) request.getAttribute("PAGE_ID_NAME_MAP");
-		HashMap<Integer, String> elementIdNameMap = (HashMap<Integer, String>) request.getAttribute("ELEMENT_ID_NAME_MAP");
-		HashMap<Integer, String> elementValueIdNameMap = (HashMap<Integer, String>) request.getAttribute("ELEMENT_VALUE_ID_NAME_MAP");
+		Map<Long, String> pageIdNameMap = (Map<Long, String>) request.getAttribute("PAGE_ID_NAME_MAP");
+		Map<Long, String> elementIdNameMap = (Map<Long, String>) request.getAttribute("ELEMENT_ID_NAME_MAP");
+		Map<Long, String> elementValueIdNameMap = (Map<Long, String>) request.getAttribute("ELEMENT_VALUE_ID_NAME_MAP");
 	%>
 	<input type="hidden" name="PROJECT_ID" id="PROJECT_ID" value="1">
 	<form action="SaveCondition" method="POST">

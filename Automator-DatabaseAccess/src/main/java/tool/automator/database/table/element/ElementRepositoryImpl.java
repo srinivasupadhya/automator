@@ -10,7 +10,7 @@ import tool.automator.database.table.AbstractRepositoryCustom;
 public class ElementRepositoryImpl extends AbstractRepositoryCustom implements ElementRepositoryCustom {
 	@SuppressWarnings("unchecked")
 	public List<ElementDTO> getAllElementsSortedByRelativeOrder() {
-		String jpaQL = "SELECT e FROM ElementModel e order by e.relativeOrder";
+		String jpaQL = "SELECT e FROM ElementDTO e order by e.relativeOrder";
 		Query query = em.createQuery(jpaQL);
 
 		return (List<ElementDTO>) query.getResultList();
@@ -18,7 +18,7 @@ public class ElementRepositoryImpl extends AbstractRepositoryCustom implements E
 
 	@SuppressWarnings("unchecked")
 	public List<String> getFilteredElementNames(Long pageId, String inputParam) {
-		String jpaQL = "SELECT e FROM ElementModel e WHERE e.pageId = :pageId";
+		String jpaQL = "SELECT e FROM ElementDTO e WHERE e.pageId = :pageId";
 		if (inputParam != null && !inputParam.isEmpty())
 			jpaQL += " AND e.scriptName like '%" + inputParam + "%'";
 		Query query = em.createQuery(jpaQL);
@@ -33,7 +33,7 @@ public class ElementRepositoryImpl extends AbstractRepositoryCustom implements E
 
 	@SuppressWarnings("unchecked")
 	public List<ElementDTO> getElementsOfPage(Long pageId) {
-		String jpaQL = "SELECT e FROM ElementModel e WHERE e.pageId = :pageId order by e.relativeOrder, e.scriptName";
+		String jpaQL = "SELECT e FROM ElementDTO e WHERE e.pageId = :pageId order by e.relativeOrder, e.scriptName";
 		Query query = em.createQuery(jpaQL);
 		query.setParameter("pageId", pageId);
 

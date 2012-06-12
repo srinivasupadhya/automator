@@ -132,5 +132,7 @@ public class TestJPAHibernateSpring {
 		List<ElementValueConditionDTO> elementValueConditions = elementValueConditionDAO.getElementValueConditionsByElementValueRestrictionId(elementValueRestrictions.get(0)
 				.getId());
 		System.out.println(elementValueConditions);
+		
+		System.exit(0);
 	}
 }

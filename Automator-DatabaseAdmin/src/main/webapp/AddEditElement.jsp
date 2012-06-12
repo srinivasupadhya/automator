@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@page import="tool.automator.database.table.uipage.UIPageDTO"%>
@@ -19,7 +20,7 @@
 		String action = (String) request.getAttribute("ACTION");
 		UIPageDTO uipage = (UIPageDTO) request.getAttribute("PAGE");
 		ElementDTO element = (ElementDTO) request.getAttribute("ELEMENT");
-		HashMap<Integer, String> pageIdNameMap = (HashMap<Integer, String>) request.getAttribute("PAGE_ID_NAME_MAP");
+		Map<Long, String> pageIdNameMap = (Map<Long, String>) request.getAttribute("PAGE_ID_NAME_MAP");
 	%>
 	<form action="SaveElement" method="POST">
 		<input type="hidden" name="ACTION" value="<%=action%>" />

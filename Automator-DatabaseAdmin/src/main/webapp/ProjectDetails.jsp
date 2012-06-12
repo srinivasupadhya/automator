@@ -1,7 +1,7 @@
+<%@page import="java.util.Map"%>
 <%@page import="tool.automator.database.table.pagedependency.PageDependencyDTO"%>
 <%@page import="tool.automator.database.table.uipage.UIPageDTO"%>
 <%@page import="tool.automator.client.framework.models.holders.ProjectDetailsModel"%>
-<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -18,7 +18,7 @@
 <body>
 <%
 	ProjectDetailsModel projectDetails = (ProjectDetailsModel) request.getAttribute("PROJECT_DETAILS");
-	HashMap<Integer, String> pageIdNameMap = (HashMap<Integer, String>) request.getAttribute("PAGE_ID_NAME_MAP");
+	Map<Long, String> pageIdNameMap = (Map<Long, String>) request.getAttribute("PAGE_ID_NAME_MAP");
 %>
 <h3><%=projectDetails.getProject().getProjectName()%></h3>
 <table id="newspaper-a">

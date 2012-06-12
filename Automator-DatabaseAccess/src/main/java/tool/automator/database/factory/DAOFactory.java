@@ -19,7 +19,7 @@ public class DAOFactory {
 	private ApplicationContext applicationContext;
 
 	private DAOFactory() {
-		applicationContext = new ClassPathXmlApplicationContext("config/applicationContext.xml");
+		applicationContext = new ClassPathXmlApplicationContext("applicationContext.xml");
 	}
 
 	public static DAOFactory getInstance() {

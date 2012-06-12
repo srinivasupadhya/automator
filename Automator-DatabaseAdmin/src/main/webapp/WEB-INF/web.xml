@@ -6,7 +6,7 @@
 
 	<servlet>
 		<servlet-name>AddProject</servlet-name>
-		<servlet-class>tool.automator.server.servlet.addedit.AddProject</servlet-class>
+		<servlet-class>tool.automator.server.servlet.addedit.AddEditProject</servlet-class>
 	</servlet>
 	<servlet>
 		<description>

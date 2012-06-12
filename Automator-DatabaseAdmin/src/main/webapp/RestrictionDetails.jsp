@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="tool.automator.database.table.elementrestriction.ElementRestrictionDTO"%>
@@ -18,16 +19,16 @@
 <body>
 	<%
 		String conditionOn = (String) request.getAttribute("CONDITION_ON");
-		int pageId = (Integer) request.getAttribute("PAGE_ID");
-		int elementId = (Integer) request.getAttribute("ELEMENT_ID");
-		int elementValueId = (Integer) request.getAttribute("ELEMENT_VALUE_ID");
+		Long pageId = (Long) request.getAttribute("PAGE_ID");
+		Long elementId = (Long) request.getAttribute("ELEMENT_ID");
+		Long elementValueId = (Long) request.getAttribute("ELEMENT_VALUE_ID");
 			
 		List<ElementRestrictionDTO> elementRestrictions = (List<ElementRestrictionDTO>) request.getAttribute("ELEMENT_RESTRICTIONS");
 		List<ElementValueRestrictionDTO> elementValueRestrictions = (List<ElementValueRestrictionDTO>) request.getAttribute("ELEMENT_VALUE_RESTRICTIONS");
 		
-		HashMap<Integer, String> pageIdNameMap = (HashMap<Integer, String>) request.getAttribute("PAGE_ID_NAME_MAP");
-		HashMap<Integer, String> elementIdNameMap = (HashMap<Integer, String>) request.getAttribute("ELEMENT_ID_NAME_MAP");
-		HashMap<Integer, String> elementValueIdNameMap = (HashMap<Integer, String>) request.getAttribute("ELEMENT_VALUE_ID_NAME_MAP");
+		Map<Long, String> pageIdNameMap = (Map<Long, String>) request.getAttribute("PAGE_ID_NAME_MAP");
+		Map<Long, String> elementIdNameMap = (Map<Long, String>) request.getAttribute("ELEMENT_ID_NAME_MAP");
+		Map<Long, String> elementValueIdNameMap = (Map<Long, String>) request.getAttribute("ELEMENT_VALUE_ID_NAME_MAP");
 	%>
 	<table id="newspaper-a">
 		<thead>

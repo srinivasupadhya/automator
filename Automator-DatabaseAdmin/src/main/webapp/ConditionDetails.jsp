@@ -1,3 +1,4 @@
+<%@page import="java.util.Map"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@page import="tool.automator.database.table.ConditionIf"%>
@@ -17,12 +18,12 @@
 <body>
 	<%
 		String conditionOn = (String) request.getAttribute("CONDITION_ON");
-		int conditionNumber = (Integer) request.getAttribute("CONDITION_NUMBER");
+		Long conditionNumber = (Long) request.getAttribute("CONDITION_NUMBER");
 	
 		List<ConditionIf> conditions = (List<ConditionIf>) request.getAttribute("CONDITIONS");
-		HashMap<Integer, String> pageIdNameMap = (HashMap<Integer, String>) request.getAttribute("PAGE_ID_NAME_MAP");
-		HashMap<Integer, String> elementIdNameMap = (HashMap<Integer, String>) request.getAttribute("ELEMENT_ID_NAME_MAP");
-		HashMap<Integer, String> elementValueIdNameMap = (HashMap<Integer, String>) request.getAttribute("ELEMENT_VALUE_ID_NAME_MAP");
+		Map<Long, String> pageIdNameMap = (Map<Long, String>) request.getAttribute("PAGE_ID_NAME_MAP");
+		Map<Long, String> elementIdNameMap = (Map<Long, String>) request.getAttribute("ELEMENT_ID_NAME_MAP");
+		Map<Long, String> elementValueIdNameMap = (Map<Long, String>) request.getAttribute("ELEMENT_VALUE_ID_NAME_MAP");
 	%>
 	<table id="newspaper-a">
 		<thead>

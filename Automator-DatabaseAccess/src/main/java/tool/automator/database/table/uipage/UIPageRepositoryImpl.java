@@ -13,7 +13,7 @@ public class UIPageRepositoryImpl extends AbstractRepositoryCustom implements UI
 
 	@SuppressWarnings("unchecked")
 	public List<UIPageDTO> getAllPagesByPageName() {
-		return (List<UIPageDTO>) em.createQuery("SELECT up FROM UIPageModel up order by up.pageName").getResultList();
+		return (List<UIPageDTO>) em.createQuery("SELECT up FROM UIPageDTO up order by up.pageName").getResultList();
 	}
 
 	public Map<Long, String> getPageIdNameMap() {
@@ -26,7 +26,7 @@ public class UIPageRepositoryImpl extends AbstractRepositoryCustom implements UI
 
 	@SuppressWarnings("unchecked")
 	public List<String> getFilteredPageNames(Long projectId, String inputParam) {
-		String jpaQL = "SELECT up FROM UIPageModel up WHERE up.projectId = :projectId";
+		String jpaQL = "SELECT up FROM UIPageDTO up WHERE up.projectId = :projectId";
 		if (inputParam != null && !inputParam.isEmpty())
 			jpaQL += " AND up.pageName like '%" + inputParam + "%'";
 		Query query = em.createQuery(jpaQL);
@@ -42,7 +42,7 @@ public class UIPageRepositoryImpl extends AbstractRepositoryCustom implements UI
 
 	@SuppressWarnings("unchecked")
 	public List<UIPageDTO> getAllPagesOfProject(Long projectId) {
-		String jpaQL = "SELECT up FROM UIPageModel up WHERE up.projectId = :projectId order by up.pageName";
+		String jpaQL = "SELECT up FROM UIPageDTO up WHERE up.projectId = :projectId order by up.pageName";
 		Query query = em.createQuery(jpaQL);
 		query.setParameter("projectId", projectId);
 
