@@ -16,7 +16,7 @@ import tool.automator.common.db.models.ElementModel;
 import tool.automator.common.db.models.ElementValueModel;
 import tool.automator.common.db.models.ProjectModel;
 import tool.automator.common.db.models.UIPageModel;
-import tool.automator.executor.constants.DBSettingsPathConst;
+import tool.automator.database.constants.DBSettingsPathConst;
 import tool.automator.executor.xml.models.ElementFileXMLBind;
 import tool.automator.executor.xml.models.ElementModelXMLBind;
 import tool.automator.executor.xml.models.ElementValueFileXMLBind;
