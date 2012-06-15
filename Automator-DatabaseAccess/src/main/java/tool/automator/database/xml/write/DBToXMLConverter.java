@@ -81,5 +81,7 @@ public class DBToXMLConverter {
 		System.out.println("Finished writing Element-Value settings into: " + DBSettingsPathConst.ELEMENT_VALUE_XML_FILE_NAME);
 
 		System.out.println("Finished writing settings into: " + DBSettingsPathConst.BASE_XML_PATH);
+		
+		System.exit(0);
 	}
 }
