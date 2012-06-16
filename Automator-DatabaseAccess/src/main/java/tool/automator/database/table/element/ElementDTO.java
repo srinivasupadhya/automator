@@ -20,10 +20,10 @@ public class ElementDTO extends AbstractPersistable<Long> implements Serializabl
 	@Column(name = "page_id", nullable = false)
 	private Long pageId;
 
-	@Column(name = "uIIdentifier", nullable = false)
+	@Column(name = "uIIdentifier", nullable = true)
 	private String uIIdentifier;
 
-	@Column(name = "uIIdentifierGetType", nullable = false)
+	@Column(name = "uIIdentifierGetType", nullable = true)
 	private String uIIdentifierGetType;
 
 	@Column(name = "uIElementType", nullable = false)

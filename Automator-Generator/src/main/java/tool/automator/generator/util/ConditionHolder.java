@@ -48,7 +48,7 @@ public class ConditionHolder {
 			return true;
 
 		ConditionIf condition = (ConditionIf) that;
-		if (condition.getPageId() == page.getId() && condition.getElementId() == element.getId() && condition.getElementValueId() == elementValue.getId())
+		if (condition.getPageId().equals(page.getId()) && condition.getElementId().equals(element.getId()) && condition.getElementValueId().equals(elementValue.getId()))
 			return true;
 
 		return false;

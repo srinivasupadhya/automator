@@ -55,6 +55,10 @@ public class TestScriptsGenerator {
 	private int testScriptCount = 0;
 
 	public TestScriptsGenerator(String project, String release, String browser) {
+		this.project = project;
+		this.release = release;
+		this.browser = browser;
+
 		projectService = DAOFactory.getInstance().getProjectService();
 		uiPageService = DAOFactory.getInstance().getUIPageService();
 		elementService = DAOFactory.getInstance().getElementService();
@@ -74,7 +78,7 @@ public class TestScriptsGenerator {
 		// initialize globals
 		ProjectDTO currentProject = projectService.getProjectByName(project);
 
-		UIPageDTO globalPage = uiPageService.getPageByName("Global", currentProject.getId());
+		UIPageDTO globalPage = uiPageService.getPageByName("GLOBAL", currentProject.getId());
 
 		// initialize project element
 		ElementDTO projectElement = elementService.getElementByScriptName(TestScriptConstants.PROJECT, globalPage.getId());
@@ -235,7 +239,7 @@ public class TestScriptsGenerator {
 
 		for (int i = 0; i < pageDependencies.size(); i++) {
 			currentPageDependency = pageDependencies.get(i);
-			
+
 			conditions = pageConditionService.getPageConditionsByPageDependencyId(currentPageDependency.getId());
 
 			conditionsMet = checkIfAllConditionsSatisfied(list, conditions);
@@ -332,7 +336,7 @@ public class TestScriptsGenerator {
 		// System.out.println(testScript);
 
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter("GeneratedTestScripts/" + testScriptCount + ".txt"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/srinivasupadhya/Documents/generated-testscripts/" + testScriptCount + ".txt"));
 			writer.write(testScript);
 			writer.flush();
 			writer.close();
