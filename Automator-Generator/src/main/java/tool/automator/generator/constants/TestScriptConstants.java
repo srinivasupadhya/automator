@@ -1,6 +1,6 @@
 package tool.automator.generator.constants;
 
-public interface TestScriptConst {
+public interface TestScriptConstants {
 	public static final String START_MODULE = "+START_MODULE\n";
 	public static final String END_MODULE = "+END_MODULE\n";
 	public static final String START_STEP = "\t+START_STEP\n";

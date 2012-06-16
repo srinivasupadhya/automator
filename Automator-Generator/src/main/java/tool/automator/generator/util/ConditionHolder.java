@@ -41,7 +41,13 @@ public class ConditionHolder {
 		this.elementValue = elementValue;
 	}
 
-	public boolean matchesCondition(ConditionIf condition) {
+	public boolean equals(Object that) {
+		if (that == null || !(that instanceof ConditionIf))
+			return false;
+		if (this == that)
+			return true;
+
+		ConditionIf condition = (ConditionIf) that;
 		if (condition.getPageId() == page.getId() && condition.getElementId() == element.getId() && condition.getElementValueId() == elementValue.getId())
 			return true;
 

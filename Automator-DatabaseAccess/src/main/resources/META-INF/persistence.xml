@@ -6,12 +6,21 @@
 
 	<persistence-unit name="SampleTestPU">
 		<properties>
-			<!-- MySQL -->
+			<!-- MySQL 
 			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
 			<property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/automator" />
 			<property name="hibernate.connection.username" value="root" />
 			<property name="hibernate.connection.password" value="" />
+			-->
+			
+			<!-- H2 DB -->
+			<property name="hibernate.connection.driver_class" value="org.h2.Driver" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
+			<property name="hibernate.connection.url" value="jdbc:h2:/Users/srinivasupadhya/Documents/workspace/Automator-Parent/database/automator" /> 
+			<property name="hibernate.connection.password" value="sa" />
+			<property name="hibernate.connection.username" value="" />
+			
 			
 			<property name="hibernate.archive.autodetection" value="hbm, class" />
 
