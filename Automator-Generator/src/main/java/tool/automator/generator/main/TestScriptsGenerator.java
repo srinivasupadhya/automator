@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import tool.automator.database.constants.PathConstants;
 import tool.automator.database.constants.UIElementTypesConst;
 import tool.automator.database.factory.DAOFactory;
 import tool.automator.database.table.ConditionIf;
@@ -336,7 +337,7 @@ public class TestScriptsGenerator {
 		// System.out.println(testScript);
 
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/srinivasupadhya/Documents/generated-testscripts/" + testScriptCount + ".txt"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(PathConstants.BASE_TESTSCRIPT_PATH + testScriptCount + ".txt"));
 			writer.write(testScript);
 			writer.flush();
 			writer.close();

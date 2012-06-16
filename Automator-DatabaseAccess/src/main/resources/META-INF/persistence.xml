@@ -17,16 +17,18 @@
 			<!-- H2 DB -->
 			<property name="hibernate.connection.driver_class" value="org.h2.Driver" />
 			<property name="hibernate.dialect" value="org.hibernate.dialect.H2Dialect" />
-			<property name="hibernate.connection.url" value="jdbc:h2:/Users/srinivasupadhya/Documents/workspace/Automator-Parent/database/automator" /> 
+			<property name="hibernate.connection.url" value="jdbc:h2:/Users/srinivasupadhya/Documents/workspace/Automator-Parent/output/Database/automator" /> 
 			<property name="hibernate.connection.password" value="sa" />
 			<property name="hibernate.connection.username" value="" />
 			
 			
 			<property name="hibernate.archive.autodetection" value="hbm, class" />
 
+			<!-- Cache 
 			<property name="hibernate.cache.use_second_level_cache" value="true" />
 			<property name="hibernate.cache.use_query_cache" value="true" />
 			<property name="hibernate.cache.region.factory_class" value="net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory" />
+			-->
 
 			<property name="hibernate.connection.provider_class" value="org.hibernate.connection.C3P0ConnectionProvider" />
 			<property name="hibernate.c3p0.min_size" value="1" />

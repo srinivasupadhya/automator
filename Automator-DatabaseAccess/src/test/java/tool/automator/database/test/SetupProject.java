@@ -45,11 +45,11 @@ public class SetupProject {
 		ProjectDTO projectYahoo = createProject(projectService, "Yahoo");
 
 		// page
-		UIPageDTO uiPageGlobal = createUIPage(uiPageService, "GLOBAL", projectYahoo, false);
+		UIPageDTO uiPageGlobal = createUIPage(uiPageService, "GLOBAL", projectYahoo, false, null);
 
-		UIPageDTO uiPageSearch = createUIPage(uiPageService, "SEARCH-PAGE", projectYahoo, true);
+		UIPageDTO uiPageSearch = createUIPage(uiPageService, "SEARCH-PAGE", projectYahoo, true, "in.yahoo.com");
 
-		UIPageDTO uiPageResults = createUIPage(uiPageService, "RESULTS-PAGE", projectYahoo, false);
+		UIPageDTO uiPageResults = createUIPage(uiPageService, "RESULTS-PAGE", projectYahoo, false, null);
 
 		// element
 		ElementDTO elementProject = createElement(elementService, "PROJECT", uiPageGlobal, null, null, UIElementTypesConst.VARIABLE, 1);
@@ -109,8 +109,6 @@ public class SetupProject {
 
 		ElementValueConditionDTO elementValueCondition_Results_SearchResult_ThoughtWorksStudiosTxtMsg = createElementValueCondition(elementValueConditionService,
 				elementValueRestriction_Results_SearchResult_ThoughtWorksStudiosTxtMsg, uiPageSearch, elementSearchQuery, elementValueThoughtWorksStudios);
-
-		System.exit(0);
 	}
 
 	public static ElementValueConditionDTO createElementValueCondition(ElementValueConditionService elementValueConditionService,
@@ -179,8 +177,8 @@ public class SetupProject {
 		return elementProject;
 	}
 
-	public static UIPageDTO createUIPage(UIPageService uiPageService, String pageName, ProjectDTO projectGoogle, boolean isStartPage) {
-		UIPageDTO uiPageGlobal = new UIPageDTO(pageName, projectGoogle.getId(), isStartPage, 5, null, null, null, null);
+	public static UIPageDTO createUIPage(UIPageService uiPageService, String pageName, ProjectDTO projectGoogle, boolean isStartPage, String pageGetURL) {
+		UIPageDTO uiPageGlobal = new UIPageDTO(pageName, projectGoogle.getId(), isStartPage, 5, pageGetURL, null, null, null);
 		uiPageService.savePage(uiPageGlobal);
 		System.out.println(uiPageGlobal);
 		return uiPageGlobal;

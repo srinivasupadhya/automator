@@ -7,7 +7,7 @@ import java.util.List;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-import tool.automator.database.constants.DBSettingsPathConst;
+import tool.automator.database.constants.PathConstants;
 import tool.automator.database.factory.DAOFactory;
 import tool.automator.database.table.element.ElementDTO;
 import tool.automator.database.table.element.ElementService;
@@ -28,7 +28,7 @@ import tool.automator.database.xml.models.ProjectModelXMLBind;
 
 public class DBToXMLConverter {
 	public static void main(String[] args) throws Exception {
-		System.out.println("Writing settings into: " + DBSettingsPathConst.BASE_XML_PATH);
+		System.out.println("Writing settings into: " + PathConstants.BASE_XML_PATH);
 
 		Serializer serializer = new Persister();
 
@@ -40,9 +40,9 @@ public class DBToXMLConverter {
 		}
 
 		ProjectFileXMLBind projectFileXMLBind = new ProjectFileXMLBind(projectXMLBinds);
-		serializer.write(projectFileXMLBind, new File(DBSettingsPathConst.PROJECT_XML_FILE_NAME));
+		serializer.write(projectFileXMLBind, new File(PathConstants.PROJECT_XML_FILE_NAME));
 
-		System.out.println("Finished writing Project settings into: " + DBSettingsPathConst.PROJECT_XML_FILE_NAME);
+		System.out.println("Finished writing Project settings into: " + PathConstants.PROJECT_XML_FILE_NAME);
 
 		UIPageService uiPageService = DAOFactory.getInstance().getUIPageService();
 		List<UIPageDTO> uiPages = uiPageService.getAllPages();
@@ -52,9 +52,9 @@ public class DBToXMLConverter {
 		}
 
 		PageFileXMLBind pageFileXMLService = new PageFileXMLBind(pageXMLBinds);
-		serializer.write(pageFileXMLService, new File(DBSettingsPathConst.PAGE_XML_FILE_NAME));
+		serializer.write(pageFileXMLService, new File(PathConstants.PAGE_XML_FILE_NAME));
 
-		System.out.println("Finished writing Page settings into: " + DBSettingsPathConst.PAGE_XML_FILE_NAME);
+		System.out.println("Finished writing Page settings into: " + PathConstants.PAGE_XML_FILE_NAME);
 
 		ElementService elementDAO = DAOFactory.getInstance().getElementService();
 		List<ElementDTO> elements = elementDAO.getAllElements();
@@ -64,9 +64,9 @@ public class DBToXMLConverter {
 		}
 
 		ElementFileXMLBind elementFileXMLService = new ElementFileXMLBind(elementXMLBinds);
-		serializer.write(elementFileXMLService, new File(DBSettingsPathConst.ELEMENT_XML_FILE_NAME));
+		serializer.write(elementFileXMLService, new File(PathConstants.ELEMENT_XML_FILE_NAME));
 
-		System.out.println("Finished writing Element settings into: " + DBSettingsPathConst.ELEMENT_XML_FILE_NAME);
+		System.out.println("Finished writing Element settings into: " + PathConstants.ELEMENT_XML_FILE_NAME);
 
 		ElementValueService elementValueDAO = DAOFactory.getInstance().getElementValueService();
 		List<ElementValueDTO> elementValues = elementValueDAO.getAllElementValues();
@@ -76,12 +76,10 @@ public class DBToXMLConverter {
 		}
 
 		ElementValueFileXMLBind elementValueFileXMLBind = new ElementValueFileXMLBind(elementValueXMLBinds);
-		serializer.write(elementValueFileXMLBind, new File(DBSettingsPathConst.ELEMENT_VALUE_XML_FILE_NAME));
+		serializer.write(elementValueFileXMLBind, new File(PathConstants.ELEMENT_VALUE_XML_FILE_NAME));
 
-		System.out.println("Finished writing Element-Value settings into: " + DBSettingsPathConst.ELEMENT_VALUE_XML_FILE_NAME);
+		System.out.println("Finished writing Element-Value settings into: " + PathConstants.ELEMENT_VALUE_XML_FILE_NAME);
 
-		System.out.println("Finished writing settings into: " + DBSettingsPathConst.BASE_XML_PATH);
-		
-		System.exit(0);
+		System.out.println("Finished writing settings into: " + PathConstants.BASE_XML_PATH);
 	}
 }
