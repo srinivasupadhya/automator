@@ -337,7 +337,7 @@ public class TestScriptsGenerator {
 		// System.out.println(testScript);
 
 		try {
-			BufferedWriter writer = new BufferedWriter(new FileWriter(PathConstants.BASE_TESTSCRIPT_PATH + testScriptCount + ".txt"));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(PathConstants.BASE_TESTSCRIPT_PATH + testScriptCount + PathConstants.TESTSCRIPT_EXTENSION));
 			writer.write(testScript);
 			writer.flush();
 			writer.close();

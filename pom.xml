@@ -75,7 +75,7 @@
 	</repositories>
 
 	<properties>
-		<project.path>/Users/srinivasupadhya/Documents/workspace/Automator-Parent</project.path>
+		<project.path>/Users/sriniup/Documents/workspace/Automator-Parent</project.path>
 		<spring.version>3.1.1.RELEASE</spring.version>
 	</properties>
 

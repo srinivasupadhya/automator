@@ -17,6 +17,9 @@ execute: mvn jetty:run - run jetty server with Automator-DatabaseAdmin. open loc
 cd to Automator-ExecutorGUI
 execute: mvn assembly:single - create executable jar of GUI based test-script executor
 
+cd to Automator-ExecutorStandalone
+execute: mvn assembly:single - create executable jar of Standalone test-script executor
+
 Output Paths:
 Automator-Parent/output/Database/automator.h2.db - database for all modules
 Automator-Parent/output/DatabaseSettings - all xmls generated are dumped here
