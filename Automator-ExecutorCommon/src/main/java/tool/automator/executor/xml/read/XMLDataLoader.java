@@ -6,11 +6,11 @@ import java.util.List;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-import tool.automator.database.constants.PathConstants;
-import tool.automator.database.table.element.ElementModelIf;
-import tool.automator.database.table.elementvalue.ElementValueModelIf;
-import tool.automator.database.table.project.ProjectModelIf;
-import tool.automator.database.table.uipage.UIPageModelIf;
+import tool.automator.common.constants.PathConstants;
+import tool.automator.common.models.ElementModelIf;
+import tool.automator.common.models.ElementValueModelIf;
+import tool.automator.common.models.ProjectModelIf;
+import tool.automator.common.models.UIPageModelIf;
 import tool.automator.database.xml.models.ElementFileXMLBind;
 import tool.automator.database.xml.models.ElementValueFileXMLBind;
 import tool.automator.database.xml.models.PageFileXMLBind;

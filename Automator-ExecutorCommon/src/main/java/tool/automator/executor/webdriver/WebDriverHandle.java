@@ -10,9 +10,9 @@ import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.support.ui.Select;
 
-import tool.automator.database.constants.UIElementGetTypesConst;
-import tool.automator.database.constants.UIElementTypesConst;
-import tool.automator.database.table.element.ElementModelIf;
+import tool.automator.common.constants.UIElementGetTypesConst;
+import tool.automator.common.constants.UIElementTypesConst;
+import tool.automator.common.models.ElementModelIf;
 import tool.automator.executor.constants.*;
 
 public class WebDriverHandle {

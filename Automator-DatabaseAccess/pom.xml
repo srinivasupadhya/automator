@@ -16,6 +16,12 @@
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>com.thoughtworks</groupId>
+			<artifactId>Automator-Common</artifactId>
+			<version>1</version>
+		</dependency>
+
 		<!-- Hibernate -->
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>

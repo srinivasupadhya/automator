@@ -1,7 +1,7 @@
 package tool.automator.executor.util;
 
-import tool.automator.database.table.element.ElementModelIf;
-import tool.automator.database.table.elementvalue.ElementValueModelIf;
+import tool.automator.common.models.ElementModelIf;
+import tool.automator.common.models.ElementValueModelIf;
 
 public class ElementNValuePair {
 	private ElementModelIf element;

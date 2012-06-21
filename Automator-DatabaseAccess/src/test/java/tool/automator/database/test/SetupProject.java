@@ -1,7 +1,7 @@
 package tool.automator.database.test;
 
-import tool.automator.database.constants.UIElementGetTypesConst;
-import tool.automator.database.constants.UIElementTypesConst;
+import tool.automator.common.constants.UIElementGetTypesConst;
+import tool.automator.common.constants.UIElementTypesConst;
 import tool.automator.database.factory.DAOFactory;
 import tool.automator.database.table.element.ElementDTO;
 import tool.automator.database.table.element.ElementService;

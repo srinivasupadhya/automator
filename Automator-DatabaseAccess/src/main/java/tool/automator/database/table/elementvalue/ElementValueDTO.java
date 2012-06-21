@@ -9,6 +9,8 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import tool.automator.database.xml.models.ElementValueModelXMLBind;
+
 @Entity
 @Table(name = "element_values")
 public class ElementValueDTO extends AbstractPersistable<Long> implements Serializable {
@@ -62,6 +64,10 @@ public class ElementValueDTO extends AbstractPersistable<Long> implements Serial
 		this.turnsPage = turnsPage;
 		this.hidden = hidden;
 		this.modified = new Date();
+	}
+
+	public ElementValueModelXMLBind getElementValueModelXMLBind() {
+		return new ElementValueModelXMLBind(getId(), elementId, scriptValue, actualValue, turnsPage, hidden);
 	}
 
 	// getters & setters

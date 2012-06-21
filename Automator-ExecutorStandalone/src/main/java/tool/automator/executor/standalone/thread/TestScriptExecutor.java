@@ -4,11 +4,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import tool.automator.database.constants.UIElementTypesConst;
-import tool.automator.database.table.element.ElementModelIf;
-import tool.automator.database.table.elementvalue.ElementValueModelIf;
-import tool.automator.database.table.project.ProjectModelIf;
-import tool.automator.database.table.uipage.UIPageModelIf;
+import tool.automator.common.constants.UIElementTypesConst;
+import tool.automator.common.models.ElementModelIf;
+import tool.automator.common.models.ElementValueModelIf;
+import tool.automator.common.models.ProjectModelIf;
+import tool.automator.common.models.UIPageModelIf;
 import tool.automator.database.xml.models.ElementValueModelXMLBind;
 import tool.automator.executor.constants.*;
 import tool.automator.executor.aircanada.AirCanadaCustomFunction;

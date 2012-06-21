@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tool.automator.database.table.elementvalue.ElementValueModelIf;
+import tool.automator.common.models.ElementValueModelIf;
 
 public class ElementValueDataManager {
 	private List<? extends ElementValueModelIf> elementValueList;

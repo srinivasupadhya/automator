@@ -9,6 +9,8 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import tool.automator.database.xml.models.PageModelXMLBind;
+
 @Entity
 @Table(name = "ui_pages")
 public class UIPageDTO extends AbstractPersistable<Long> implements Serializable {
@@ -58,8 +60,8 @@ public class UIPageDTO extends AbstractPersistable<Long> implements Serializable
 		this.modified = timestamp;
 	}
 
-	public void update(String pageName, Long projectId, boolean startPage, int waitTime, String pageGetURL, String pageIdentifier, String pageIdentifierGetType,
-			String pageIdentifierValue) {
+	public void update(String pageName, Long projectId, boolean startPage, int waitTime, String pageGetURL, String pageIdentifier,
+			String pageIdentifierGetType, String pageIdentifierValue) {
 		this.pageName = pageName;
 		this.projectId = projectId;
 		this.startPage = startPage;
@@ -69,6 +71,10 @@ public class UIPageDTO extends AbstractPersistable<Long> implements Serializable
 		this.pageIdentifierGetType = pageIdentifierGetType;
 		this.pageIdentifierValue = pageIdentifierValue;
 		this.modified = new Date();
+	}
+
+	public PageModelXMLBind getPageModelXMLBind() {
+		return new PageModelXMLBind(getId(), pageName, projectId, startPage, waitTime, pageGetURL, pageIdentifier, pageIdentifierGetType, pageIdentifierValue);
 	}
 
 	// getters & setters
@@ -153,7 +159,7 @@ public class UIPageDTO extends AbstractPersistable<Long> implements Serializable
 	}
 
 	public String toString() {
-		return getId() + " " + pageName + " " + projectId + " " + startPage + " " + waitTime + " " + pageGetURL + " " + pageIdentifier + " " + pageIdentifierGetType + " "
-				+ pageIdentifierValue;
+		return getId() + " " + pageName + " " + projectId + " " + startPage + " " + waitTime + " " + pageGetURL + " " + pageIdentifier + " "
+				+ pageIdentifierGetType + " " + pageIdentifierValue;
 	}
 }

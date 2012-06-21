@@ -19,7 +19,7 @@ public class SelectSeat {
 
 		Thread.sleep(10000);
 
-		webDriver.doAction(new ElementModelXMLBind(-1L, "", -1L, "SELECT SEAT", "LINKTEXT", "BUTTON", -1, -1, -1, true), "CLICK");
+		webDriver.doAction(new ElementModelXMLBind(-1L, "", -1L, "SELECT SEAT", "LINKTEXT", "BUTTON", -1, -1L, -1, true), "CLICK");
 
 		String originalWindowHandle = webDriver.getDriver().getWindowHandle();
 		Set<String> allWindowHandle = webDriver.getDriver().getWindowHandles();
@@ -79,7 +79,7 @@ public class SelectSeat {
 			noOfRemainingSeatsToSelect--;
 		}
 
-		webDriver.doAction(new ElementModelXMLBind(-1L, "", -1L, "CONTINUE", "LINKTEXT", "BUTTON", -1, -1, -1, true), "CLICK");
+		webDriver.doAction(new ElementModelXMLBind(-1L, "", -1L, "CONTINUE", "LINKTEXT", "BUTTON", -1, -1L, -1, true), "CLICK");
 
 		webDriver.getDriver().switchTo().window(originalWindowHandle);
 	}

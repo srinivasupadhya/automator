@@ -3,11 +3,11 @@ package tool.automator.executor.standalone.main;
 import java.io.File;
 import java.util.List;
 
-import tool.automator.database.constants.PathConstants;
-import tool.automator.database.table.element.ElementModelIf;
-import tool.automator.database.table.elementvalue.ElementValueModelIf;
-import tool.automator.database.table.project.ProjectModelIf;
-import tool.automator.database.table.uipage.UIPageModelIf;
+import tool.automator.common.constants.PathConstants;
+import tool.automator.common.models.ElementModelIf;
+import tool.automator.common.models.ElementValueModelIf;
+import tool.automator.common.models.ProjectModelIf;
+import tool.automator.common.models.UIPageModelIf;
 import tool.automator.executor.datamanager.ElementDataManager;
 import tool.automator.executor.datamanager.ElementValueDataManager;
 import tool.automator.executor.datamanager.PageDataManager;
@@ -16,16 +16,17 @@ import tool.automator.executor.standalone.thread.PooledExecutorService;
 import tool.automator.executor.xml.read.XMLDataLoader;
 
 public class TestScriptExecutorMain {
-	// static DecimalFormat DF = new DecimalFormat("0.000", new DecimalFormatSymbols(Locale.ENGLISH));
+	// static DecimalFormat DF = new DecimalFormat("0.000", new
+	// DecimalFormatSymbols(Locale.ENGLISH));
 
 	private static String testScriptsPath;
 
 	public static void main(String[] args) throws Exception {
 		validate(args, false);
 
-		if(testScriptsPath == null)
+		if (testScriptsPath == null)
 			testScriptsPath = PathConstants.BASE_PROJECT_PATH + "output/GeneratedTestscripts";
-		
+
 		// load data
 		XMLDataLoader dataLoader = new XMLDataLoader();
 		List<? extends ProjectModelIf> projectList = dataLoader.loadProjectData();
@@ -52,11 +53,11 @@ public class TestScriptExecutorMain {
 	}
 
 	private static void validate(String[] args, boolean strict) {
-		if (args != null && args.length > 0 &&  args[0] != null && !args[0].trim().isEmpty()) {
+		if (args != null && args.length > 0 && args[0] != null && !args[0].trim().isEmpty()) {
 			testScriptsPath = args[0];
 		} else {
 			System.out.println("Usage: java -jar Automator-ExecutorStandalone <Path to Test-Script>");
-			if(strict)
+			if (strict)
 				System.exit(0);
 		}
 	}

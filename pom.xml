@@ -10,6 +10,7 @@
 	<name>Automator Parent Project</name>
 
 	<modules>
+		<module>Automator-Common</module>
 		<module>Automator-DatabaseAccess</module>
 		<module>Automator-DatabaseAdmin</module>
 		<module>Automator-Generator</module>

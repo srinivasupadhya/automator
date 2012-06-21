@@ -96,7 +96,7 @@ public class SelectFlight {
 		System.out.println(radioButtonId);
 		
 		if(radioButtonId != null)
-			webDriver.doAction(new ElementModelXMLBind(-1L, "", -1L, radioButtonId, "ID", "RADIOBUTTON", 1, -1, 1, false), "CLICK");
+			webDriver.doAction(new ElementModelXMLBind(-1L, "", -1L, radioButtonId, "ID", "RADIOBUTTON", 1, -1L, 1, false), "CLICK");
 		else
 			System.out.println("No Flight Solution");
 		

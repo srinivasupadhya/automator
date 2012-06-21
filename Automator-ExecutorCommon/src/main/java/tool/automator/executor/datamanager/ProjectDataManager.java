@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tool.automator.database.table.project.ProjectModelIf;
+import tool.automator.common.models.ProjectModelIf;
 
 public class ProjectDataManager {
 	private List<? extends ProjectModelIf> projectList;

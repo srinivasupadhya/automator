@@ -9,6 +9,8 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import tool.automator.database.xml.models.ElementModelXMLBind;
+
 @Entity
 @Table(name = "elements")
 public class ElementDTO extends AbstractPersistable<Long> implements Serializable {
@@ -68,8 +70,8 @@ public class ElementDTO extends AbstractPersistable<Long> implements Serializabl
 		this.modified = new Date();
 	}
 
-	public ElementDTO(String scriptName, Long pageId, String uIIdentifier, String uIIdentifierGetType, String uIElementType, int relativeOrder, int release, boolean optional,
-			boolean hidden) {
+	public ElementDTO(String scriptName, Long pageId, String uIIdentifier, String uIIdentifierGetType, String uIElementType, int relativeOrder, int release,
+			boolean optional, boolean hidden) {
 		super();
 		update(scriptName, pageId, uIIdentifier, uIIdentifierGetType, uIElementType, relativeOrder, release, optional, hidden);
 		Date timestamp = new Date();
@@ -90,6 +92,10 @@ public class ElementDTO extends AbstractPersistable<Long> implements Serializabl
 		this.hidden = hidden;
 
 		this.modified = new Date();
+	}
+
+	public ElementModelXMLBind getElementModelXMLBind() {
+		return new ElementModelXMLBind(getId(), scriptName, pageId, uIIdentifier, uIIdentifierGetType, uIElementType, relativeOrder, -1L, release, optional);
 	}
 
 	// getters & setters
@@ -185,7 +191,7 @@ public class ElementDTO extends AbstractPersistable<Long> implements Serializabl
 		if (getId() == -1)
 			return getId() + " " + scriptName;
 		else
-			return getId() + " " + scriptName + " " + pageId + " " + uIIdentifier + " " + uIIdentifierGetType + " " + uIElementType + " " + relativeOrder + " " + release
-					+ " " + optional;
+			return getId() + " " + scriptName + " " + pageId + " " + uIIdentifier + " " + uIIdentifierGetType + " " + uIElementType + " " + relativeOrder + " "
+					+ release + " " + optional;
 	}
 }

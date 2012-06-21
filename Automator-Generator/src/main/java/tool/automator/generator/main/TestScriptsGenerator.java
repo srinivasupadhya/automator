@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import tool.automator.database.constants.PathConstants;
-import tool.automator.database.constants.UIElementTypesConst;
+import tool.automator.common.constants.PathConstants;
+import tool.automator.common.constants.UIElementTypesConst;
 import tool.automator.database.factory.DAOFactory;
 import tool.automator.database.table.ConditionIf;
 import tool.automator.database.table.element.ElementDTO;

@@ -15,7 +15,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.thoughtworks</groupId>
-			<artifactId>Automator-DatabaseAccess</artifactId>
+			<artifactId>Automator-Common</artifactId>
 			<version>1</version>
 		</dependency>
 

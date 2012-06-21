@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import tool.automator.database.table.uipage.UIPageModelIf;
+import tool.automator.common.models.UIPageModelIf;
 
 public class PageDataManager {
 	private List<? extends UIPageModelIf> pageList;

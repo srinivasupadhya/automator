@@ -7,7 +7,7 @@ import java.util.List;
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
 
-import tool.automator.database.constants.PathConstants;
+import tool.automator.common.constants.PathConstants;
 import tool.automator.database.factory.DAOFactory;
 import tool.automator.database.table.element.ElementDTO;
 import tool.automator.database.table.element.ElementService;
@@ -36,7 +36,7 @@ public class DBToXMLConverter {
 		List<ProjectDTO> projects = projectService.getAllProjects();
 		List<ProjectModelXMLBind> projectXMLBinds = new ArrayList<ProjectModelXMLBind>();
 		for (ProjectDTO currentProject : projects) {
-			projectXMLBinds.add(new ProjectModelXMLBind(currentProject));
+			projectXMLBinds.add(currentProject.getProjectModelXMLBind());
 		}
 
 		ProjectFileXMLBind projectFileXMLBind = new ProjectFileXMLBind(projectXMLBinds);
@@ -48,7 +48,7 @@ public class DBToXMLConverter {
 		List<UIPageDTO> uiPages = uiPageService.getAllPages();
 		List<PageModelXMLBind> pageXMLBinds = new ArrayList<PageModelXMLBind>();
 		for (UIPageDTO currentPage : uiPages) {
-			pageXMLBinds.add(new PageModelXMLBind(currentPage));
+			pageXMLBinds.add(currentPage.getPageModelXMLBind());
 		}
 
 		PageFileXMLBind pageFileXMLService = new PageFileXMLBind(pageXMLBinds);
@@ -60,7 +60,7 @@ public class DBToXMLConverter {
 		List<ElementDTO> elements = elementDAO.getAllElements();
 		List<ElementModelXMLBind> elementXMLBinds = new ArrayList<ElementModelXMLBind>();
 		for (ElementDTO currentElement : elements) {
-			elementXMLBinds.add(new ElementModelXMLBind(currentElement));
+			elementXMLBinds.add(currentElement.getElementModelXMLBind());
 		}
 
 		ElementFileXMLBind elementFileXMLService = new ElementFileXMLBind(elementXMLBinds);
@@ -72,7 +72,7 @@ public class DBToXMLConverter {
 		List<ElementValueDTO> elementValues = elementValueDAO.getAllElementValues();
 		List<ElementValueModelXMLBind> elementValueXMLBinds = new ArrayList<ElementValueModelXMLBind>();
 		for (ElementValueDTO currentElementValue : elementValues) {
-			elementValueXMLBinds.add(new ElementValueModelXMLBind(currentElementValue));
+			elementValueXMLBinds.add(currentElementValue.getElementValueModelXMLBind());
 		}
 
 		ElementValueFileXMLBind elementValueFileXMLBind = new ElementValueFileXMLBind(elementValueXMLBinds);

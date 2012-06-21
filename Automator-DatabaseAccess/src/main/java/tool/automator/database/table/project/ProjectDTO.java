@@ -9,6 +9,8 @@ import javax.persistence.Table;
 
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
+import tool.automator.database.xml.models.ProjectModelXMLBind;
+
 @Entity
 @Table(name = "projects")
 public class ProjectDTO extends AbstractPersistable<Long> implements Serializable {
@@ -33,6 +35,10 @@ public class ProjectDTO extends AbstractPersistable<Long> implements Serializabl
 		this.projectName = projectName;
 		this.created = new Date();
 		this.modified = new Date();
+	}
+
+	public ProjectModelXMLBind getProjectModelXMLBind() {
+		return new ProjectModelXMLBind(getId(), projectName);
 	}
 
 	public String getProjectName() {
