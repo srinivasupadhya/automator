@@ -28,6 +28,10 @@ import tool.automator.database.xml.models.ProjectModelXMLBind;
 
 public class DBToXMLConverter {
 	public static void main(String[] args) throws Exception {
+		File xmlFolder = new File(PathConstants.BASE_XML_PATH);
+		if (!xmlFolder.exists())
+			xmlFolder.mkdir();
+
 		System.out.println("Writing settings into: " + PathConstants.BASE_XML_PATH);
 
 		Serializer serializer = new Persister();

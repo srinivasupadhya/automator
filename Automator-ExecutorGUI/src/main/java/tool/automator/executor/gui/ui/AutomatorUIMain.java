@@ -1,10 +1,29 @@
 package tool.automator.executor.gui.ui;
 
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.Toolkit;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 import java.util.List;
 
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
 
 import tool.automator.common.models.ElementModelIf;
 import tool.automator.common.models.ElementValueModelIf;
@@ -20,8 +39,15 @@ import tool.automator.executor.gui.control.ExecutorThread;
 import tool.automator.executor.xml.read.XMLDataLoader;
 import tools.automator.executor.gui.constants.ImagePathConst;
 
-import com.explodingpixels.macwidgets.*;
-import com.explodingpixels.widgets.*;
+import com.explodingpixels.macwidgets.BottomBar;
+import com.explodingpixels.macwidgets.BottomBarSize;
+import com.explodingpixels.macwidgets.DBottomBar;
+import com.explodingpixels.macwidgets.MacButtonFactory;
+import com.explodingpixels.macwidgets.MacUtils;
+import com.explodingpixels.macwidgets.MacWidgetFactory;
+import com.explodingpixels.macwidgets.SourceList;
+import com.explodingpixels.macwidgets.UnifiedToolBar;
+import com.explodingpixels.widgets.WindowUtils;
 
 public class AutomatorUIMain {
 	private static JFrame mainFrame = new JFrame();
@@ -30,7 +56,7 @@ public class AutomatorUIMain {
 	private BottomBar mainBottomBar;
 	// static TestScriptExecutor threadTest;
 	final JTextArea textArea = new JTextArea();
-	
+
 	private ProjectDataManager projectDAO;
 	private PageDataManager pageDAO;
 	private ElementDataManager elementDAO;
@@ -47,7 +73,7 @@ public class AutomatorUIMain {
 		elementDAO = new ElementDataManager(elementList);
 		List<? extends ElementValueModelIf> elementValueList = dataLoader.loadElementValueData();
 		elementValueDAO = new ElementValueDataManager(elementValueList);
-		
+
 		// create GUI
 		mainFrame.setUndecorated(true);
 
@@ -103,7 +129,7 @@ public class AutomatorUIMain {
 
 		ButtonGroup group = new ButtonGroup();
 		group.add(closeButton);
-		
+
 		// add buttons to menu bar
 		UnifiedToolBar toolBar = new UnifiedToolBar();
 		toolBar.addComponentToLeft(MacButtonFactory.makeUnifiedToolBarButton(new JButton("New", addTCIcon)));
@@ -111,7 +137,7 @@ public class AutomatorUIMain {
 		toolBar.addComponentToLeft(MacButtonFactory.makeUnifiedToolBarButton(new JButton("Process", activeTCIcon)));
 		toolBar.addComponentToLeft(MacButtonFactory.makeUnifiedToolBarButton(new JButton("Preferences", preferences)));
 		toolBar.addComponentToRight(closeButton);
-		
+
 		toolBar.installWindowDraggerOnWindow(mainFrame);
 
 		return toolBar;
@@ -198,8 +224,7 @@ public class AutomatorUIMain {
 		});
 
 		final JComboBox runModeComboBox = new JComboBox(new String[] { "Auto", "Step", "Line" });
-		final JComboBox browerComboBox = new JComboBox(new String[] { BrowserChoiceConst.FIREFOX, BrowserChoiceConst.EXPLORER, BrowserChoiceConst.CHROME,
-				BrowserChoiceConst.NOBROWSER });
+		final JComboBox browerComboBox = new JComboBox(new String[] { BrowserChoiceConst.FIREFOX, BrowserChoiceConst.EXPLORER, BrowserChoiceConst.CHROME, BrowserChoiceConst.NOBROWSER });
 
 		final JButton playButton = new JButton(new ImageIcon(DBottomBar.class.getResource(ImagePathConst.PLAY)));
 		playButton.setMargin(new Insets(0, 0, 0, 0));

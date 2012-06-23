@@ -77,7 +77,7 @@ public class TestScriptInterpreter {
 			// get project
 			if (elementScriptName.equals(ScriptElementConst.PROJECT)) {
 				currentProject = projectDAO.getProjectByName(elementScriptValue);
-				currentPage = pageDAO.getPageByName("Global", currentProject.getId());
+				currentPage = pageDAO.getPageByName("GLOBAL", currentProject.getId());
 			}
 			// get page
 			else if (elementScriptName.equals(ScriptElementConst.PAGE)) {

@@ -61,15 +61,7 @@ public class ExecutorThread implements Runnable {
 
 			executor.interpretLine(testScriptLines[i]);
 
-			// highlight currentLine on GUI
-			textArea.getHighlighter().removeAllHighlights();
-			try {
-				System.out.println("highlight: " + index + " - " + (index + testScriptLines[i].length()));
-				hilighter.addHighlight(index, index + testScriptLines[i].length() + 1, painter);
-			}
-			catch (BadLocationException e) {
-				e.printStackTrace();
-			}
+			highlightText(i, index);
 
 			// wait if runMode is "line level"
 			if (i < testScriptLines.length - 1 && runMode == ApplicationConst.LINELEVEL) {
@@ -104,17 +96,27 @@ public class ExecutorThread implements Runnable {
 		}
 
 		System.out.println("TESTSCRIPT EXECUTION END");
+		
+		executor.close();
+		clearHighlights();
 	}
 
-	public boolean closeController() {
+	private void highlightText(int i, int index) {
+		// remove any previous highlights
+		clearHighlights();
+		
 		try {
-			// close browser
-			// wdHandle.closeDriver();
-			return true;
+			System.out.println("highlight: " + index + " - " + (index + testScriptLines[i].length()));
+			
+			// highlight currentLine on GUI
+			hilighter.addHighlight(index, index + testScriptLines[i].length() + 1, painter);
 		}
-		catch (Exception e) {
-			System.err.println("Could not exit cleanly");
-			return false;
+		catch (BadLocationException e) {
+			e.printStackTrace();
 		}
+	}
+
+	private void clearHighlights() {
+		textArea.getHighlighter().removeAllHighlights();
 	}
 }
